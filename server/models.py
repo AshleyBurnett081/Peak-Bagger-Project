@@ -1,6 +1,11 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 from config import db
+import re
+from sqlalchemy.orm import validates
+
+
+
 
 class User(db.Model, SerializerMixin):
     __tablename__ = 'drivers'
@@ -29,6 +34,56 @@ class User(db.Model, SerializerMixin):
     serialize_rules = ()
     
     #Validations
+    @validates('first_name')
+    def validate_first_name(self, key, first_name):
+        if not first_name or not 2 < len(first_name) <15:
+          raise ValueError(' Your first name must be between 2 and 15 characters long')
+        return first_name
+
+    @validates('last_name')
+    def validate_last_name(self, key, last_name):
+        if not last_name or not 2 < len(last_name) < 15:
+          raise ValueError(' Your last name must be between 2 and 15 characters long')
+        return last_name
+
+    @validates('user_name')
+    def validate_user_name(self, key, user_name):
+        if not user_name or not 2 < len(user_name) < 35:
+          raise ValueError(' Your user name must be between 2 and 35 characters long')
+        return user_name
+
+    @validates('age')
+    def validate_age(self, key, new_age):
+        if not new_age or not 16 <= int(new_age) <= 101:
+          raise ValueError(' Your age must be between 16 and 100 years old to join')
+        return new_age
+
+    @validates('current_zip_code')
+    def validate_zip_code(self, key, my_zip_code):
+        if not my_zip_code or not type(int) or not len(my_zip_code) == 5:
+            raise ValueError('You must enter a valid zip code to join')
+        return my_zip_code
+    
+    @validates('favorite_mountain')
+    def validate_user_name(self, key, mountain):
+        if not mountain or not 2 < len(mountain) < 35:
+          raise ValueError(' Your favorite mountain must be between 2 and 35 characters long')
+        return mountain
+
+    
+    @validates('email')
+    def emailValid(self, key, current_email_address):
+        regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(.[A-Z|a-z]{2,})+')
+        if re.fullmatch(regex, current_email_address):
+            return current_email_address
+        return ValueError("Invalid email address")
+    
+    @validates('password')
+    def password_valid(self, key, current_password):
+        if not current_password or not type(str) and len(current_password) >4:
+            raise ValueError("Invalid password")
+        return current_password
+            
     
 class Route(db.Model, SerializerMixin):
     __tablename__ = 'routes'
