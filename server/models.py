@@ -36,21 +36,27 @@ class User(db.Model, SerializerMixin):
     serialize_rules = ('-user_routes', '-routes')
     
     #Validations
+    @validates('profile_picture')
+    def validate_profile_picture(self, key, pic):
+        if not pic:
+          raise ValueError('You must upload a profile picture')
+        return pic
+    
     @validates('first_name')
     def validate_first_name(self, key, first_name):
-        if not first_name or not 1 < len(first_name) <50:
+        if not first_name or not type(str) or not 1 < len(first_name) <50:
           raise ValueError('Your first name must be between 2 and 50 characters long')
         return first_name
 
     @validates('last_name')
     def validate_last_name(self, key, last_name):
-        if not last_name or not 2 < len(last_name) < 15:
+        if not last_name or not type(str) or not 2 < len(last_name) < 15:
           raise ValueError('Your last name must be between 2 and 15 characters long')
         return last_name
 
     @validates('user_name')
     def validate_user_name(self, key, user_name):
-        if not user_name or not 2 < len(user_name) < 35:
+        if not user_name or not type(str) or not 2 < len(user_name) < 35:
           raise ValueError('Your user name must be between 2 and 35 characters long')
         return user_name
 
@@ -93,6 +99,7 @@ class Route(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     mountain_id = db.Column(db.Integer, db.ForeignKey('mountains.id'))
     name = db.Column(db.String, nullable=False)
+    picture = db.Column(db.String, nullable=False)
     difficulty_class = db.Column(db.Integer, nullable=False)
     length = db.Column(db.Integer, nullable=False)
     elevation_gain = db.Column(db.Integer, nullable=False)
@@ -109,6 +116,38 @@ class Route(db.Model, SerializerMixin):
     serialize_rules = ('-user_routes', '-users')
     
     #Validations
+    @validates('name')
+    def validate_name(self, key, name):
+        if not name or not type(str) or not 1 < len(name) <75:
+          raise ValueError('The route name must be between 2 and 50 characters long')
+        return name   
+    
+    @validates('picture')
+    def validate_picture(self, key, pic):
+        if not pic:
+          raise ValueError('You must upload a picture')
+        return pic        
+    
+    @validates('difficulty_class')
+    def validate_difficulty_class(self, key, difficulty_class):
+        if not difficulty_class or not type(int) or not range(1,6):
+          raise ValueError('Must be between class 1 and class 5')
+        return difficulty_class
+    
+    @validates('length')
+    def validate_length(self, key, length):
+        if not length or not type(int) or not range(1, 100):
+          raise ValueError('The route length must be between 1 and 100 miles')
+        return length
+    
+    @validates('elevation_gain')
+    def validate_elevation_gain(self, key, elevation_gain):
+        if not elevation_gain or not type(int) or not range(1, 15001):
+          raise ValueError('Elevation gain must be between 1 and 15,000 feet.')
+        return elevation_gain
+
+
+
 
 class UserRoute(db.Model, SerializerMixin):
     __tablename__ = 'user_routes'
@@ -171,8 +210,41 @@ class Mountain(db.Model, SerializerMixin):
     serialize_rules = ('-routes')
     
     #Validations
-        
-            
+    @validates('name')
+    def validate_name(self, key, name):
+        if not name or not type(str) or not 1 < len(name) <75:
+          raise ValueError('The Mountain name must be between 2 and 50 characters long')
+        return name   
+    
+    @validates('picture')
+    def validate_picture(self, key, pic):
+        if not pic:
+          raise ValueError('You must upload a picture')
+        return pic        
+
+    @validates('elevation')
+    def validate_elevation(self, key, height):
+        if not height:
+          raise ValueError(' Your must enter the mountains elevation')
+        return height
+    
+    @validates('number_of_routes')
+    def validate_number_of_routes(self, key, number):
+        if not number or not type(int) or not 1< len(number) <151:
+          raise ValueError(' Your must enter the number of routes found on the mountain')
+        return number
+    
+    @validates('location')
+    def validate_location(self, key, the_place):
+        if not the_place or not type(str) or not 2 < len(the_place) < 100:
+          raise ValueError('The location must be between 2 and 100 characters long')
+        return the_place
+    
+    @validates('emergency_contact_information')
+    def validate_emergency_contact_information(self, key, contact):
+        if not contact or not type(str) or not 2 < len(contact) < 200:
+          raise ValueError('The contact information must be between 2 and 200 characters long')
+        return contact
 
 
 
