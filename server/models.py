@@ -108,12 +108,12 @@ class Route(db.Model, SerializerMixin):
     #Relationships
     user_routes = db.relationship('UserRoute', back_populates='route')
     reviews =db.relationship('Review', back_populates ='route')
-    mountains = db.relationship('Mountain', back_populates='routes')
+    # mountains = db.relationship('Mountain', back_populates='routes')
     users = association_proxy('user_routes', 'user')
     
     #Serialize
     serialize_only = ('id', 'mountain_id', 'name', 'difficulty_class', 'length', 'elevation_gain', 'created_at', 'updated_at')
-    serialize_rules = ('-user_routes', '-users')
+    serialize_rules = ('-user_routes', '-reviews', '-mountains')
     
     #Validations
     @validates('name')
@@ -204,15 +204,15 @@ class Mountain(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     #Relationships
-    routes = db.relationship('Route', back_populates='mountains')
+    # routes = db.relationship('Route', back_populates='mountains')
     #Serialize
     serialize_only = ('id', 'name', 'elevation', 'number_of_routes', 'location', 'emergency_contact_information', 'created_at', 'updated_at')
-    serialize_rules = ('-routes')
+    # serialize_rules = ('-routes')
     
     #Validations
     @validates('name')
     def validate_name(self, key, name):
-        if not name or not type(str) or not 1 < len(name) <75:
+        if not name or not type(str) or not 2 < len(name) <75:
           raise ValueError('The Mountain name must be between 2 and 50 characters long')
         return name   
     
@@ -221,7 +221,7 @@ class Mountain(db.Model, SerializerMixin):
         if not pic:
           raise ValueError('You must upload a picture')
         return pic        
-
+    
     @validates('elevation')
     def validate_elevation(self, key, height):
         if not height:

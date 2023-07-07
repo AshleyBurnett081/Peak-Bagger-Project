@@ -15,7 +15,7 @@ from datetime import datetime
 
 @app.route('/')
 def index():
-    return '<h1>Peak Bagger</h1>'
+    return '<h1>Peak Bagger</h1>' 
 
 class Users(Resource):
 
@@ -97,15 +97,14 @@ class RouteById(Resource):
 
 api.add_resource(RouteById, "/routes/<int:id>")
 
-class Mountains(Resource):
-
-    def get(self):
-        mountains = [m.to_dict() for m in Mountain.query.all()]
-        if mountains:
-            return make_response(mountains, 200)
-        return make_response("No mountains found", 404)
+# class Mountains(Resource):
+#     def get(self):
+#         mountains = [m.to_dict() for m in Mountain.query.all()]
+#         if mountains:
+#             return make_response(mountains, 200)
+#         return make_response("No mountains found", 404)
         
-api.add_resource(Mountains, '/mountains')
+# api.add_resource(Mountains, '/mountains')
 
 
 class UserRoutes(Resource):
@@ -150,7 +149,12 @@ class Reviews(Resource):
 
 api.add_resource(Reviews, "/reviews")
 
-
+class Mountains(Resource):
+    def get(self):
+        mountains = [m.to_dict() for m in Mountain.query.all()]
+        return make_response(mountains, 200)
+        
+api.add_resource(Mountains, '/mountains')
 
 
 if __name__ == '__main__':
