@@ -38,20 +38,20 @@ class User(db.Model, SerializerMixin):
     #Validations
     @validates('first_name')
     def validate_first_name(self, key, first_name):
-        if not first_name or not 2 < len(first_name) <15:
-          raise ValueError(' Your first name must be between 2 and 15 characters long')
+        if not first_name or not 1 < len(first_name) <50:
+          raise ValueError('Your first name must be between 2 and 50 characters long')
         return first_name
 
     @validates('last_name')
     def validate_last_name(self, key, last_name):
         if not last_name or not 2 < len(last_name) < 15:
-          raise ValueError(' Your last name must be between 2 and 15 characters long')
+          raise ValueError('Your last name must be between 2 and 15 characters long')
         return last_name
 
     @validates('user_name')
     def validate_user_name(self, key, user_name):
         if not user_name or not 2 < len(user_name) < 35:
-          raise ValueError(' Your user name must be between 2 and 35 characters long')
+          raise ValueError('Your user name must be between 2 and 35 characters long')
         return user_name
 
     @validates('age')
