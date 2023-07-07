@@ -8,7 +8,7 @@ from sqlalchemy.orm import validates
 
 
 class User(db.Model, SerializerMixin):
-    __tablename__ = 'drivers'
+    __tablename__ = 'users'
     
     id = db.Column(db.Integer, primary_key=True)
     profile_picture = db.Column(db.String, nullable=False)
@@ -25,13 +25,15 @@ class User(db.Model, SerializerMixin):
     
     #Relationships
     user_routes = db.relationship('UserRoute', back_populates='user')
+    reviews = db.relationship('Review', back_populates='user')
     routes = association_proxy('user_routes', 'route')
+    
     
     
     #Serialize
     
-    serialize_only = ()
-    serialize_rules = ()
+    serialize_only = ('id', 'profile_picture', 'first_name', 'last_name', 'user_name', 'age', 'current_zip_code', 'favorite_mountain', 'email', 'created_at', 'updated_at')
+    serialize_rules = ('-user_routes', '-routes')
     
     #Validations
     @validates('first_name')
@@ -80,15 +82,16 @@ class User(db.Model, SerializerMixin):
     
     @validates('password')
     def password_valid(self, key, current_password):
-        if not current_password or not type(str) and len(current_password) >4:
-            raise ValueError("Invalid password")
-        return current_password
-            
+        regex = re.compile(r'^(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=\D*\d)(?=.*?[\!\#\@\$\%\&\/\(\)\=\?\*\-\+\-\_\.\:\;\,\]\[\{\}\^])[A-Za-z0-9\!\#\@\$\%\&\/\(\)\=\?\*\-\+\-\_\.\:\;\,\]\[\{\}\^]{8,60}$')
+        if re.fullmatch(regex, current_password):
+            return current_password        
+        return ValueError("Invalid password")    
     
 class Route(db.Model, SerializerMixin):
     __tablename__ = 'routes'
     
     id = db.Column(db.Integer, primary_key=True)
+    mountain_id = db.Column(db.Integer, db.ForeignKey('mountains.id'))
     name = db.Column(db.String, nullable=False)
     difficulty_class = db.Column(db.Integer, nullable=False)
     length = db.Column(db.Integer, nullable=False)
@@ -97,11 +100,13 @@ class Route(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     #Relationships
     user_routes = db.relationship('UserRoute', back_populates='route')
-    users = db.association_proxy('user_routes', 'user')
+    reviews =db.relationship('Review', back_populates ='route')
+    mountains = db.relationship('Mountain', back_populates='routes')
+    users = association_proxy('user_routes', 'user')
     
     #Serialize
-    serialize_only = ()
-    serialize_rules = ()
+    serialize_only = ('id', 'mountain_id', 'name', 'difficulty_class', 'length', 'elevation_gain', 'created_at', 'updated_at')
+    serialize_rules = ('-user_routes', '-users')
     
     #Validations
 
@@ -121,7 +126,8 @@ class UserRoute(db.Model, SerializerMixin):
     route = db.relationship('Route', back_populates='user_routes')
     
     #Serialize
-    
+    serialize_only = ('id', 'date', 'duration', 'comment', 'user_id', 'route_id', 'created_at', 'updated_at')
+    serialize_rules = ('-user.user_routes', '-route.user_routes')
     
     #Validations
     
@@ -130,9 +136,9 @@ class Review(db.Model, SerializerMixin):
     
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
-    comment = comment = db.Column(db.String, nullable=False)
+    comment = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    route_id = (db.Integer, db.ForeignKey('routes.id'))
+    route_id = db.Column(db.Integer, db.ForeignKey('routes.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
@@ -141,51 +147,50 @@ class Review(db.Model, SerializerMixin):
     route = db.relationship('Route', back_populates='reviews')
     
     #Serialize
-    
+    serialize_only = ('id', 'rating', 'comment', 'user_id', 'route_id', 'created_at', 'updated_at')
+    serialize_rules = ('-user.reviews', '-route.reviews')
     
     #Validations
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class Mountain(db.Model, SerializerMixin):
-    id = db.Column()
-    name = db.Column()
-    elevation = db.Column()
-    number_of_routes = db.Column()
-    location = db.Column()
-    emergency_contact_information = db.Column()
+    __tablename__ = 'mountains'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    elevation = db.Column(db.Integer, nullable=False)
+    number_of_routes = db.Column(db.Integer, nullable=False)
+    location = db.Column(db.String, nullable=False)
+    emergency_contact_information = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     #Relationships
-    routes = db.relationship()
-    user = association_proxy()
-        
-    
+    routes = db.relationship('Route', back_populates='mountains')
     #Serialize
-    serialize_only = ()
-    serialize_rules = ()
+    serialize_only = ('id', 'name', 'elevation', 'number_of_routes', 'location', 'emergency_contact_information', 'created_at', 'updated_at')
+    serialize_rules = ('-routes')
     
     #Validations
         
             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
