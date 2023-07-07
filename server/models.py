@@ -157,6 +157,7 @@ class Mountain(db.Model, SerializerMixin):
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
+    picture = db.Column(db.String, nullable=False)
     elevation = db.Column(db.Integer, nullable=False)
     number_of_routes = db.Column(db.Integer, nullable=False)
     location = db.Column(db.String, nullable=False)
