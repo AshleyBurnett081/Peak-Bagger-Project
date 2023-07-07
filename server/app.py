@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, session
 from flask_restful import Resource, Api
 import os 
 # Local imports
@@ -97,15 +97,41 @@ class RouteById(Resource):
 
 api.add_resource(RouteById, "/routes/<int:id>")
 
-# class Mountains(Resource):
-#     def get(self):
-#         mountains = [m.to_dict() for m in Mountain.query.all()]
-#         if mountains:
-#             return make_response(mountains, 200)
-#         return make_response("No mountains found", 404)
+class Mountains(Resource):
+    def get(self):
+        mountains = [m.to_dict() for m in Mountain.query.all()]
+        return make_response(mountains, 200)
         
-# api.add_resource(Mountains, '/mountains')
+api.add_resource(Mountains, '/mountains')
 
+class MountainById(Resource):
+    def get(self, id):
+        mountain_by_id = db.session.get(User, id)
+        if mountain_by_id:
+            return make_response(mountain_by_id.to_dict(), 200)
+        return make_response(({"error": "404: Mountain not found."}) ,404)
+    
+    def delete(self, id):
+        try:
+            mountain = db.session.get(Mountain, id)
+            db.session.delete(mountain)
+            db.session.commit()
+            return make_response(({}),204)
+        except Exception as e:
+            return make_response(({"error": "404: Mountain not found."}),404)
+        
+    def patch(self, id):
+        try:
+            data = request.get_json()
+            mountain = db.session.get(Mountain, id)
+            for k, v in data.items():
+                setattr(mountain, k, v)
+            db.session.commit()
+            return make_response((mountain.to_dict()), 200)
+        except Exception as e:
+            return make_response(({"error": str(e)}),400)    
+        
+api.add_resource(MountainById, "/mountain/<int:id>")
 
 class UserRoutes(Resource):
     def get(self):
@@ -149,15 +175,20 @@ class Reviews(Resource):
 
 api.add_resource(Reviews, "/reviews")
 
-class Mountains(Resource):
-    def get(self):
-        mountains = [m.to_dict() for m in Mountain.query.all()]
-        return make_response(mountains, 200)
-        
-api.add_resource(Mountains, '/mountains')
 
 
-if __name__ == '__main__':
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':    
     app.run(port=5555, debug=True)
 
 
