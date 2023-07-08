@@ -263,3 +263,15 @@ class Review(db.Model, SerializerMixin):
     serialize_rules = ('-user.reviews', '-route.reviews')
     
     #Validations
+    
+    @validates('rating')
+    def validate_comment(self, key, new_rating):
+        if not new_rating or not type(int) or not range(1,11):
+          raise ValueError('Your rating must be whole numbers between 1 and 10')
+        return new_rating
+      
+    @validates('comment')
+    def validate_comment(self, key, new_comment):
+        if not new_comment or not type(str) or not 5 < len(new_comment) < 500:
+          raise ValueError('Your comment must be between 5 and 500 characters')
+        return new_comment
