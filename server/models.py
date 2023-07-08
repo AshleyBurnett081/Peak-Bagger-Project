@@ -28,8 +28,6 @@ class User(db.Model, SerializerMixin):
     reviews = db.relationship('Review', back_populates='user')
     routes = association_proxy('user_routes', 'route')
     
-    
-    
     #Serialize
     
     serialize_only = ('id', 'profile_picture', 'first_name', 'last_name', 'user_name', 'age', 'current_zip_code', 'favorite_mountain', 'email', 'created_at', 'updated_at')
@@ -148,49 +146,6 @@ class Route(db.Model, SerializerMixin):
 
 
 
-
-class UserRoute(db.Model, SerializerMixin):
-    __tablename__ = 'user_routes'
-    
-    id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.Integer, nullable=False)
-    duration_of_climb =db.Column(db.Integer, nullable=False)
-    comment = db.Column(db.String, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    route_id =db.Column(db.Integer, db.ForeignKey('routes.id'))
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
-    #Relationships
-    user = db.relationship('User', back_populates='user_routes')
-    route = db.relationship('Route', back_populates='user_routes')
-    
-    #Serialize
-    serialize_only = ('id', 'date', 'duration', 'comment', 'user_id', 'route_id', 'created_at', 'updated_at')
-    serialize_rules = ('-user.user_routes', '-route.user_routes')
-    
-    #Validations
-    
-class Review(db.Model, SerializerMixin):
-    __tablename__ = 'reviews'
-    
-    id = db.Column(db.Integer, primary_key=True)
-    rating = db.Column(db.Integer, nullable=False)
-    comment = db.Column(db.String, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    route_id = db.Column(db.Integer, db.ForeignKey('routes.id'))
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
-
-    #Relationships
-    user = db.relationship('User', back_populates='reviews')
-    route = db.relationship('Route', back_populates='reviews')
-    
-    #Serialize
-    serialize_only = ('id', 'rating', 'comment', 'user_id', 'route_id', 'created_at', 'updated_at')
-    serialize_rules = ('-user.reviews', '-route.reviews')
-    
-    #Validations
-
 class Mountain(db.Model, SerializerMixin):
     __tablename__ = 'mountains'
     
@@ -247,23 +202,64 @@ class Mountain(db.Model, SerializerMixin):
         return contact
 
 
+class UserRoute(db.Model, SerializerMixin):
+    __tablename__ = 'user_routes'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Integer, nullable=False)
+    duration_of_climb =db.Column(db.Integer, nullable=False)
+    comment = db.Column(db.String, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    route_id =db.Column(db.Integer, db.ForeignKey('routes.id'))
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+    #Relationships
+    user = db.relationship('User', back_populates='user_routes')
+    route = db.relationship('Route', back_populates='user_routes')
+    
+    #Serialize
+    serialize_only = ('id', 'date', 'duration', 'comment', 'user_id', 'route_id', 'created_at', 'updated_at')
+    serialize_rules = ('-user.user_routes', '-route.user_routes')
+    
+    #Validations
+    @validates('date')
+    def validate_date(self, key, current_date):
+        regex = re.compile(r'^((((0[13578])|([13578])|(1[02]))[\/](([1-9])|([0-2][0-9])|(3[01])))|(((0[469])|([469])|(11))[\/](([1-9])|([0-2][0-9])|(30)))|((2|02)[\/](([1-9])|([0-2][0-9]))))[\/]\d{4}$|^\d{4}$')
+        if re.fullmatch(regex, current_date):
+            return current_date
+        return ValueError("Invalid date")
+    
+    @validates('time')
+    def validate_time(self, key, time_taken):
+        regex = re.compile(r'^(?:[01]?\d|2[0-3])(?::[0-5]\d){1,2}$')
+        if re.fullmatch(regex, time_taken):
+            return time_taken
+        return ValueError("Invalid time")
+    
+    @validates('comment')
+    def validate_comment(self, key, new_comment):
+        if not new_comment or not type(str) or not 5 < len(new_comment) < 500:
+          raise ValueError('Your comment must be between 5 and 500 characters')
+        return new_comment
 
 
+class Review(db.Model, SerializerMixin):
+    __tablename__ = 'reviews'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    rating = db.Column(db.Integer, nullable=False)
+    comment = db.Column(db.String, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    route_id = db.Column(db.Integer, db.ForeignKey('routes.id'))
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    #Relationships
+    user = db.relationship('User', back_populates='reviews')
+    route = db.relationship('Route', back_populates='reviews')
+    
+    #Serialize
+    serialize_only = ('id', 'rating', 'comment', 'user_id', 'route_id', 'created_at', 'updated_at')
+    serialize_rules = ('-user.reviews', '-route.reviews')
+    
+    #Validations
