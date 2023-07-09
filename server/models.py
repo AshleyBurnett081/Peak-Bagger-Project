@@ -161,7 +161,7 @@ class Mountain(db.Model, SerializerMixin):
     #Relationships
     # routes = db.relationship('Route', back_populates='mountains')
     #Serialize
-    serialize_only = ('id', 'name', 'elevation', 'number_of_routes', 'location', 'emergency_contact_information', 'created_at', 'updated_at')
+    serialize_only = ('id', 'name', 'elevation', 'number_of_routes', 'location', 'emergency_contact_information', 'created_at', 'updated_at', 'picture')
     # serialize_rules = ('-routes')
     
     #Validations
