@@ -134,8 +134,8 @@ class Route(db.Model, SerializerMixin):
     
     @validates('length')
     def validate_length(self, key, length):
-        if not length or not type(int) or not range(1, 100):
-          raise ValueError('The route length must be between 1 and 100 miles')
+        if not length or not type(int) or not range(1, 151):
+          raise ValueError('The route length must be between 1 and 150 miles')
         return length
     
     @validates('elevation_gain')
@@ -267,7 +267,7 @@ class Review(db.Model, SerializerMixin):
     @validates('rating')
     def validate_comment(self, key, new_rating):
         if not new_rating or not type(int) or not range(1,11):
-          raise ValueError('Your rating must be whole numbers between 1 and 10')
+          raise ValueError('Your rating must be a whole number between 1 and 10')
         return new_rating
       
     @validates('comment')
