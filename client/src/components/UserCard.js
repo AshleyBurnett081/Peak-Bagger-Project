@@ -14,8 +14,10 @@ function UserCard({profile_picture, first_name, last_name, user_name, age, curre
               <Card.Title class="form-text">First Name: {first_name}</Card.Title>
               <Card.Title class="form-text">Last Name: {last_name}</Card.Title>
               <Card.Title class="form-text">age: {age}</Card.Title>
-              <Card.Title class="form-text">Emergency Contact Number: {emergency_contact_information}</Card.Title>
-              <Card.Title class="form-text">Mountain Id: {id}</Card.Title>
+              <Card.Title class="form-text">Location: {current_zip_code}</Card.Title>
+              <Card.Title class="form-text">Favorite Mountain: {favorite_mountain}</Card.Title>
+              <Card.Title class="form-text">Email: {email}</Card.Title>
+              <Card.Title class="form-text">ID: {id}</Card.Title>
             </Card.Body>
           </Card>
         );
@@ -27,4 +29,4 @@ function UserCard({profile_picture, first_name, last_name, user_name, age, curre
 
 
 
-export default MountainCard
+export default UserCard

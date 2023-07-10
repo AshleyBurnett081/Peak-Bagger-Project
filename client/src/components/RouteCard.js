@@ -13,10 +13,10 @@ function RouteCard({id, mountain_id, name, difficulty_class, length, elevation_g
               <Card.Title class="form-text">Name: {name}</Card.Title>
               <Card.Title class="form-text">Elevation Gain: {elevation_gain}</Card.Title>
               <Card.Title class="form-text">Difficulty Class: {difficulty_class}</Card.Title>
-              <Card.Title class="form-text">Length: {length}</Card.Title>
-              <Card.Title class="form-text">Id: {id}</Card.Title>
+              <Card.Title class="form-text">Length: {length} Miles</Card.Title>
               <Card.Title class="form-text">Mountain Id: {mountain_id}</Card.Title>
-            </Card.Body>
+              <Card.Title class="form-text">Id: {id} Miles</Card.Title>
+              </Card.Body>
           </Card>
         );
       

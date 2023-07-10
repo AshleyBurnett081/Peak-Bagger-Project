@@ -9,6 +9,10 @@ function App() {
     const [mountains, setMountains] = useState([])
     const [routes, setRoutes] = useState([])
     const {users, setUsers} = useState([])
+    const [currentUser, setCurrentUser] = useState(null)
+    const [showLoginForm, setShowLoginForm] = useState(false)
+
+
 
     useEffect(() => {
         fetch("/mountains")
@@ -40,16 +44,49 @@ function App() {
         })
     }, []) 
 
+    const saveUser = (new_user) => {
+        setCurrentUser(new_user)
+      }
+
+      const handleToggleForm = () => {
+        setShowLoginForm(currentVal => !currentVal);
+      };
     
 
-    
+
+
+      const handleSignoutClick= () => {
+        fetch("/signout", {method: "DELETE"})
+          .then(() => {
+          setCurrentUser(null); 
+          
+        }, );
+      }
+
+      useEffect(() => {
+        fetch("/check-user")
+        .then(response => {
+          if (response.ok){
+            response.json()
+            .then(saveUser)
+          }
+        })
+        }, [])
+
+
+
+
+
+
+
+      
     return (
         <div>
         
                 <h1>Hello World</h1>
+                    
                     <MountainCollection mountains={mountains} />
-                    <RouteCollection routes={routes} />
-                    <UserCollection user ={users} />
+                    
                     </div>
     
     

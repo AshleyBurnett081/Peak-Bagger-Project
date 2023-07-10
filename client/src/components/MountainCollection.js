@@ -17,7 +17,6 @@ function MountainCollection({mountains}) {
       <div>
          <navbar>
           <button class="button" variant='secondary' onClick={()=>history.push("/")}>Home</button>      
-          <button class="button" variant='secondary' onClick={()=>history.push("/users")}>Users</button>
           <button class="button" variant='secondary' onClick={()=>history.push("/routes")}>Routes</button>
           <button class="button" variant='secondary'>Signout</button>
         </navbar>
