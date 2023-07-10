@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import MountainCollection from "./MountainCollection";
 import RouteCollection from './RouteCollection';
+import UserCollection from './UserCollection'
 function App() {
 
 
     const [mountains, setMountains] = useState([])
     const [routes, setRoutes] = useState([])
+    const {users, setUsers} = useState([])
 
     useEffect(() => {
         fetch("/mountains")
@@ -28,16 +30,27 @@ function App() {
         })
     }, []) 
 
+    useEffect(() => {
+        fetch("/users")
+        .then(response => response.json())
+        .then(data => {
+          setUsers(data)
+    
+          
+        })
+    }, []) 
 
+    
 
-
+    
     return (
         <div>
         
-                <h1>(Hello World)</h1>
+                <h1>Hello World</h1>
                     <MountainCollection mountains={mountains} />
                     <RouteCollection routes={routes} />
-        </div>
+                    <UserCollection user ={users} />
+                    </div>
     
     
     )
