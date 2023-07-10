@@ -5,8 +5,8 @@
 # Remote library imports
 from flask import Flask, request, make_response, session
 from flask_restful import Resource, Api
-import os 
-# Local imports
+import os
+# Local importscd ..
 from config import app, db, api
 from models import User, Route, Review, UserRoute, Mountain
 from datetime import datetime
@@ -16,6 +16,57 @@ from datetime import datetime
 @app.route('/')
 def index():
     return '<h1>Peak Bagger</h1>' 
+
+
+@app.route("/check-user", methods=["GET"])
+def check_user():
+    if id := session.get("user_id"):
+        if user := db.session.get(User, id):
+            return make_response(user.to_dict(), 200)
+    
+    return make_response({"error": "Unauthorized"}, 401)
+
+
+
+@app.route("/signup" , methods=["POST"])
+def signup():
+    try:
+        data = request.get_json()
+        new_user = User(**data)
+        db.session.add(new_user)
+        db.session.commit()
+        session["user_id"] = new_user.id
+        return make_response(new_user.to_dict(), 201)
+    except Exception as e:
+        return make_response({"error": str(e) }, 400)
+
+class SignIn(Resource):
+    def post(self):
+
+        email = request.get_json()["email"]
+        password = request.get_json()["password"]
+
+        user = User.query.filter(User.email == email).first()
+
+        if user:
+            # import ipdb; ipdb.set_trace()
+            if user.password == password:
+                session["user_id"] = user.id
+                return user.to_dict(), 200
+        return make_response({"error": "Unauthorized"}, 401)
+    
+api.add_resource(SignIn, "/signin")
+
+class SignOut(Resource):
+    def delete(self):
+        
+        session["user_id"] = None
+                
+        return make_response({}, 204)
+        
+
+api.add_resource(SignOut, "/signout")
+
 
 class Users(Resource):
 
