@@ -138,12 +138,12 @@ function NewUserForm({saveUser, handleToggleForm}) {
                 onChange={formik.handleChange}
                 value={formik.values.favorite_mountain}
             />
-
+            <button class="button" type= "reset">Clear Form</button>
             <button class="button" type="submit">Submit</button>
 
         </form>
         <button class="button" onClick={handleToggleForm}>
-        Do you already climb with us?
+        Do you already climb with us? Try Logging In!
         </button>
         </div>
     )

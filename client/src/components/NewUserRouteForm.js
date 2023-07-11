@@ -3,28 +3,25 @@ import {useFormik} from "formik";
 import * as yup from "yup";
 
 
+function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUserRouteToUser}){
 
-function NewCarForm({addDriveToUser, handleToggleForm, setCars}) {
     const userSchema = yup.object({
-        make: yup.string().required("Please enter your cars make"),
-        model: yup.string().required("Please enter your cars model"),
-        year: yup.string().required("Please enter your cars model year"),
-        picture: yup.string().required("Please enter your cars picture"),
+        details: yup.string().required("Describe your drive"),
         
     })
     const formik = useFormik ({
         initialValues: {
-            make: "",
-            model: "",
-            year: "",
-            picture: "",
+            comment: "",
+            duration: "",
+            mountain_id: "",
+            user_id: currentUser.id
             
         },
         validationSchema: userSchema,
         onSubmit: values => {
             // alert(JSON.stringify(values, null));
             console.log("im in fetch")
-            fetch("/api/v1/cars", {
+            fetch("/user_routes", {
                 method:"POST",
                 headers: {
                     "Content-Type": "application/json",   
@@ -35,8 +32,7 @@ function NewCarForm({addDriveToUser, handleToggleForm, setCars}) {
                 if (resp.ok) {
                     resp.json()
                     .then(data => {
-                        setCars(data.car)
-                        addDriveToUser(data.drive)   
+                        addUserRouteToUser(data)
                     })
                 }
                 else {
@@ -51,50 +47,42 @@ function NewCarForm({addDriveToUser, handleToggleForm, setCars}) {
     return (
         <div>
         <form class="form-text" onSubmit={formik.handleSubmit}>
-            <label htmlFor="make">Make:</label>
+            <label htmlFor="mountain_id">Mountain_id:</label>
             <input
-                id="make"
-                name="make"
+                id="mountain_id"
+                name="mountain_id"
                 type="text"
                 onChange={formik.handleChange}
-                value={formik.values.make}
+                value={formik.values.mountain_id} 
+            />
+            <label class="form-text" htmlFor="comment">Comment:</label>
+            <input
+                id="comment"
+                name="comment"
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.comment} 
             />
 
-            <label class="form-text" htmlFor="model">Model:</label>
+             <label class ="form-text"htmlFor="duration">Duration:</label>
             <input
-                id="model"
-                name="model"
+                id="duration"
+                name="duration"
                 type="text"
                 onChange={formik.handleChange}
-                value={formik.values.model}
-            />
-
-            <label class="form-text" htmlFor="year">year:</label>
-            <input
-                id="year"
-                name="year"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.year}
-            />
-
-            <label class="form-text" htmlFor="picture">Picture:</label>
-            <input
-                id="picture"
-                name="picture"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.picture}
-            />
+                value={formik.values.duration}
+            /> 
+  
+            <button class='button' type="reset">Reset Form</button>
             <button class="button" type="submit">Submit</button>
 
         </form>
-        <button class="button"onClick={handleToggleForm}>
-        Create a New Car
+        <button class="button" onClick={handleToggleForm}>
+        Add this route to your collection!
         </button>
         </div>
     )
     
 }
 
-export default NewCarForm
+export default NewUserRouteForm
