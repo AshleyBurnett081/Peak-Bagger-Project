@@ -6,15 +6,16 @@ import * as yup from "yup";
 function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUserRouteToUser}){
 
     const userSchema = yup.object({
-        details: yup.string().required("Describe the details of your climb"),
-        duration: yup.string().required("Record the duration of your climb"),
-        
+        comment: yup.string().required("Leave a comment about your climb"),
+        duration_of_climb: yup.string().required("Record the duration of your climb"),
+        date: yup.string().required("Record the date of your climb"),
     })
     const formik = useFormik ({
         initialValues: {
             comment: "",
-            duration: "",
-            mountain_id: "",
+            duration_of_climb: "",
+            route_id: "",
+            date: "",
             user_id: currentUser.id
             
         },
@@ -48,13 +49,13 @@ function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUser
     return (
         <div>
         <form class="form-text" onSubmit={formik.handleSubmit}>
-            <label htmlFor="mountain_id">Mountain_id:</label>
+            <label htmlFor="route_id">Route Id:</label>
             <input
-                id="mountain_id"
-                name="mountain_id"
+                id="route_id"
+                name="route_id"
                 type="text"
                 onChange={formik.handleChange}
-                value={formik.values.mountain_id} 
+                value={formik.values.route_id} 
             />
             <label class="form-text" htmlFor="comment">Comment:</label>
             <input
@@ -65,15 +66,23 @@ function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUser
                 value={formik.values.comment} 
             />
 
-             <label class ="form-text"htmlFor="duration">Duration:</label>
+            <label class ="form-text"htmlFor="duration_of_climb">Duration of Climb:</label>
             <input
-                id="duration"
-                name="duration"
+                id="duration_of_climb"
+                name="duration_of_climb"
                 type="text"
                 onChange={formik.handleChange}
-                value={formik.values.duration}
+                value={formik.values.duration_of_climb}
             /> 
   
+            <label class ="form-text"htmlFor="date">Date:</label>
+            <input
+                id="date"
+                name="date"
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.date}
+            /> 
             <button class='button' type="reset">Reset Form</button>
             <button class="button" type="submit">Submit</button>
 

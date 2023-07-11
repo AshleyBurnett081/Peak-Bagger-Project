@@ -7,7 +7,7 @@ function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUs
 
     const userSchema = yup.object({
         comment: yup.string().required("Describe your climb"),
-        rating: yup.integer().required("Rate your route"),
+        rating: yup.string().required("Rate your route"),
         
     })
     const formik = useFormik ({
@@ -22,7 +22,7 @@ function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUs
         onSubmit: values => {
             // alert(JSON.stringify(values, null));
             console.log("im in fetch")
-            fetch("/user_routes", {
+            fetch("/reviews", {
                 method:"POST",
                 headers: {
                     "Content-Type": "application/json",   
@@ -63,6 +63,15 @@ function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUs
                 type="text"
                 onChange={formik.handleChange}
                 value={formik.values.rating} 
+            />
+
+            <label class="form-text" htmlFor="comment">Comment:</label>
+            <input
+                id="comment"
+                name="comment"
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.comment} 
             />
   
             <button class='button' type="reset">Reset Form</button>

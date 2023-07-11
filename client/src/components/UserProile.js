@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import {useParams, useHistory, Link} from 'react-router-dom'
-import {Card, Button, Row, Col, Container} from 'react-bootstrap'
+import {Card, Button, Row, Col, Container, Navbar} from 'react-bootstrap'
+import RouteCard from './RouteCard'
+import NewUserRouteForm from './NewUserRouteForm'
+import NewReviewForm from './NewReviewForm'
+import UpdateUserProfileForm from './UpdateUserProfileForm'
 
-
-
-
-
-function DriverProfile({currentDriver, handleSignoutClick, saveDriver, saveNewCar, setCars, saveNewDrive, addDriveToUser}) {
+function DriverProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRoute, setRoutes, saveNewReview, addReviewToUser, addUserRouteToUser,}) {
     const history = useHistory()
     const [seeForm, setSeeForm] = useState(false) //profile update
     const [seeCreateUserRoute, setCreateUserRoute] = useState(false)
@@ -26,18 +26,18 @@ function DriverProfile({currentDriver, handleSignoutClick, saveDriver, saveNewCa
     setSeeReviewForm(currentVal => !currentVal)
   }
   
-  const {first_name, age, profile_picture, drives, id} = currentDriver
+  const {first_name, age, profile_picture, id, user_routes} = currentUser
   
-  const routes = user_routes.map(user_route => user_route.route)
-  const mappedCars = routes.map(car => <CarCard key={car.id} {...car} currentDriver={currentDriver}/>)
+  // const routes = user_routes.map(user_route => user_route.route)
+  // const mappedRoutes = routes.map(route => <RouteCard key={route.id} {...route} currentUser={currentUser}/>)
   
   const handleDelete = (e) => {
-          fetch(`/api/v1/drivers/${id}`,{
+          fetch(`/users/${id}`,{
             method: 'DELETE'
           })
           .then(res => {
             if (res.ok){
-              saveDriver(null)
+              saveUser(null)
               // history.push("/signin")
             }
             
@@ -51,28 +51,29 @@ function DriverProfile({currentDriver, handleSignoutClick, saveDriver, saveNewCa
     return (
       <div>
         <header> 
-        <h3 class="form-text">WELCOME TO JOY RIDE, {currentDriver.first_name}!</h3>
+        <h3 class="form-text">Welcome To Peak Bagger, {currentUser.first_name}!</h3>
         </header>
-          <navbar>
-          <button class="button" variant='secondary' onClick={()=>history.push("/drivers")}>See all drivers</button>
-          <button class="button" variant='secondary' onClick={()=>history.push("/routes")}>See all routes</button>
+          <Navbar>
+          <button class="button" variant='secondary' onClick={()=>history.push("/users")}>See all Climbers</button>
+          <button class="button" variant='secondary' onClick={()=>history.push("/routes")}>See all Routes</button>
+          <button class="button" variant='secondary' onClick={()=>history.push("/mountains")}>See all Mountains</button>
           <button class="button" variant='secondary' onClick={handleSignoutClick}>Signout</button>
-          </navbar>
+          </Navbar>
         
         <Container>
             <Card.Img variant="top" src={profile_picture}/>
-            <Card.Title class="form-text">Name: {first_name}</Card.Title>
-            <Card.Text class="form-text">Age: {age} years old</Card.Text>
+            <Card.Title class="form-text"> {first_name}</Card.Title>
+            <Card.Text class="form-text"> {age} years old</Card.Text>
             <button class="button" variant='secondary' onClick={toggleForm}>Edit your profile</button>
-            {seeForm? <UpdateProfileForm currentDriver={currentDriver} saveDriver={saveDriver}/> : null}
-            <button class="button" variant='secondary' onClick={toggleUserRoute}>Create a new car</button>
-            {seeCreateUserRoute ? <NewCarForm seeCreateUserRoute={seeCreateUserRoute} saveNewCar={saveNewCar} setCars={setCars} addDriveToUser={addDriveToUser}/> : null}
-            <button class="button" variant='secondary' onClick={toggleReview}>Create a new drive!</button>
-            {seeReviewForm ? <NewDriveForm seeReviewForm={seeReviewForm} saveNewDrive={saveNewDrive} setNewReview={setNewReview} currentDriver={currentDriver} addDriveToUser={addDriveToUser}/> : null}
+            {seeForm? <UpdateUserProfileForm currentUser={currentUser} saveUser={saveUser}/> : null}
+            <button class="button" variant='secondary' onClick={toggleUserRoute}>Add A Route To Your Collection!</button>
+            {seeCreateUserRoute ? <NewUserRouteForm seeCreateUserRoute={seeCreateUserRoute} saveNewUserRoute={saveNewUserRoute} setRoutes={setRoutes} addUserRouteToUser={addUserRouteToUser} currentUser={currentUser} /> : null}
+            <button class="button" variant='secondary' onClick={toggleReview}>Review A Route!</button>
+            {seeReviewForm ? <NewReviewForm seeReviewForm={seeReviewForm} saveNewReview={saveNewReview} setNewReview={setNewReview} currentUser={currentUser} addReviewToUser={addReviewToUser}/> : null}
         </Container>
-        <h2 class="form-text">My joy rides:</h2>
+        <h2 class="form-text">My Routes:</h2>
         <div class="container">
-        {mappedCars}
+        ////
         </div>
         <footer>
         <button class="button" variant='secondary'onClick={handleDelete}> Delete account</button>

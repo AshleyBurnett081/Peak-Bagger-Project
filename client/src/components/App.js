@@ -5,7 +5,7 @@ import RouteCollection from './RouteCollection';
 import UserCollection from './UserCollection';
 import NewUserForm from "./NewUserForm";
 import LoginForm from "./LoginForm";
-
+import UserProfile from "./UserProile"
 
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
     const [showLoginForm, setShowLoginForm] = useState(false)
     const [reviews, setReviews] = useState([])
     const [userRoutes, setUserRoutes] = useState([])
+    const [userReviews, setUserReviews] = useState([])
 
     useEffect(() => {
         fetch("/mountains")
@@ -98,7 +99,13 @@ function App() {
     
     
     
-    
+    const saveNewUserRoute = (new_user_route) => {
+      setUserRoutes(new_user_route)
+    }
+
+    const saveNewReview = (new_user_review) => {
+      setUserReviews(new_user_review)
+    }
     
     
     
@@ -147,22 +154,23 @@ function App() {
 
 
 
-
-
-    return (
-        <div>
-        
-                <h1>Hello World</h1>
-                    
-                    <MountainCollection mountains={mountains} handleSignoutClick={handleSignoutClick} />
-                    <RouteCollection routes={routes} handleSignoutClick={handleSignoutClick} />
-                    <UserCollection users={users} handleSignoutClick={handleSignoutClick} />
-                    
-                    </div>
-    
-    
-    )
+return (
+  <div>
+    <Switch>
+      <Route path = '/users'>
+        <UserCollection handleSignoutClick={handleSignoutClick} users={users} />
+      </Route>
+      <Route exact path = '/'>
+      <UserProfile currentUser={currentUser} handleSignoutClick={handleSignoutClick} saveUser={saveUser} saveNewUserRoute={saveNewUserRoute} saveNewReview={saveNewReview} userRoutes ={userRoutes} addReviewToUser = {addReviewToUser} addUserRouteToUser={addUserRouteToUser} />
+      </Route>
+      <Route path="/routes">
+        <RouteCollection routes={routes} />
+      </Route>
+      <Route path = "/mountains">
+        <MountainCollection mountains={mountains}/>
+      </Route> 
+    </Switch>
+  </div>
+);
 }
-
 export default App;
-
