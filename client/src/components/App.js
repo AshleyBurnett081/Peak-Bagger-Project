@@ -16,8 +16,8 @@ function App() {
     const [users, setUsers] = useState([])
     const [currentUser, setCurrentUser] = useState(null)
     const [showLoginForm, setShowLoginForm] = useState(false)
-
-
+    const [reviews, setReviews] = useState([])
+    const [userRoutes, setUserRoutes] = useState([])
 
     useEffect(() => {
         fetch("/mountains")
@@ -47,8 +47,61 @@ function App() {
     
           
         })
-    }, []) 
+    }, [])
+    
+    useEffect(() => {
+      fetch("/reviews")
+      .then(response => response.json())
+      .then(data => {
+      setReviews(data)
+  
+        
+      })
+  }, [])
+  
+  useEffect(() => {
+    fetch("/user_routes")
+    .then(response => response.json())
+    .then(data => {
+    setUserRoutes(data)
 
+      
+    })
+}, []) 
+
+        
+    
+    
+  const addReviewToUser = (newReview) => {
+    setCurrentUser(current_user => {
+      return {
+        ...current_user,
+        reviews: [
+          ...current_user.reviews, newReview
+        ]
+      }
+
+    })
+  }
+  
+  const addUserRouteToUser = (newUserRoute) => {
+    setCurrentUser(current_user => {
+      return {
+        ...current_user,
+        user_routes: [
+          ...current_user.user_routes, newUserRoute
+        ]
+      }
+
+    })
+  }  
+    
+    
+    
+    
+    
+    
+    
     const saveUser = (new_user) => {
         setCurrentUser(new_user)
       }
@@ -101,8 +154,9 @@ function App() {
         
                 <h1>Hello World</h1>
                     
-                    <MountainCollection mountains={mountains} />
-                    <UserCollection users={users} />
+                    <MountainCollection mountains={mountains} handleSignoutClick={handleSignoutClick} />
+                    <RouteCollection routes={routes} handleSignoutClick={handleSignoutClick} />
+                    <UserCollection users={users} handleSignoutClick={handleSignoutClick} />
                     
                     </div>
     

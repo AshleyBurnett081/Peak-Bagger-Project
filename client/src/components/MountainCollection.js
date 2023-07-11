@@ -3,7 +3,7 @@ import {Card, Button, Row, Col, Container, Navbar} from 'react-bootstrap'
 import {useHistory, Link} from 'react-router-dom'
 import MountainCard from './MountainCard'
 
-function MountainCollection({mountains}) {
+function MountainCollection({mountains, handleSignoutClick}) {
 
     const history = useHistory()
   
@@ -18,7 +18,7 @@ function MountainCollection({mountains}) {
          <Navbar>
           <button class="button" variant='secondary' onClick={()=>history.push("/")}>Home</button>      
           <button class="button" variant='secondary' onClick={()=>history.push("/routes")}>Routes</button>
-          <button class="button" variant='secondary' onClick={()=>history.push("/signout")}>Signout</button>
+          <button class="button" variant='secondary' onClick={handleSignoutClick}>Signout</button>
         </Navbar>
         <h3 class="form-text">Mountains</h3>
         <div class="container">
