@@ -6,7 +6,8 @@ import * as yup from "yup";
 function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUserRouteToUser}){
 
     const userSchema = yup.object({
-        details: yup.string().required("Describe your drive"),
+        details: yup.string().required("Describe the details of your climb"),
+        duration: yup.string().required("Record the duration of your climb"),
         
     })
     const formik = useFormik ({

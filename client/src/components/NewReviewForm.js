@@ -6,7 +6,8 @@ import * as yup from "yup";
 function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUser}){
 
     const userSchema = yup.object({
-        details: yup.string().required("Describe your drive"),
+        comment: yup.string().required("Describe your climb"),
+        rating: yup.integer().required("Rate your route"),
         
     })
     const formik = useFormik ({

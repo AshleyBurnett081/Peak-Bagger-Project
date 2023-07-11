@@ -16,6 +16,12 @@ function NewUserForm({saveUser, handleToggleForm}) {
         profile_picture: yup.string().required("Please enter a valid URL for picture"),
         favorite_mountain: yup.string().required("Please enter your favorite Mountain"),
     })
+    
+
+
+    
+    
+    
     const formik = useFormik ({
         initialValues: {
             first_name: "",
@@ -29,7 +35,7 @@ function NewUserForm({saveUser, handleToggleForm}) {
             favorite_mountain: "",
         },
         validationSchema: userSchema,
-        onSubmit: values => {
+        onSubmit: values  => {
             // alert(JSON.stringify(values, null));
             console.log("im in fetch")
             fetch("/signup", {
