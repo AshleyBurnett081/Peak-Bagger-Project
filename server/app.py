@@ -195,11 +195,11 @@ class UserRoutes(Resource):
             user_route = UserRoute(**data)
             db.session.add(user_route)
             db.session.commit()
-            route = UserRoute(user_id= session.get('user_id'), route_id=route.id )
-            db.session.add(route)
-            db.session.commit()
+            # route = UserRoute(user_id= session.get('user_id'), route_id=route.id )
+            # db.session.add(route)
+            # db.session.commit()
             # import ipdb; ipdb.set_trace()
-            return make_response(({"user_route":user_route.to_dict(), "route": route.to_dict()}), 201)
+            return make_response(({"user_route":user_route.to_dict()}), 201)
         except Exception as e:
             return make_response(({"error": str(e)}),400)
 
@@ -216,11 +216,11 @@ class Reviews(Resource):
             review = Review(**data)
             db.session.add(review)
             db.session.commit()
-            route = Review(user_id= session.get('user_id'), route_id=route.id )
-            db.session.add(route)
-            db.session.commit()
+            # route = Review(user_id= session.get('user_id'), route_id=route.id )
+            # db.session.add(route)
+            # db.session.commit()
             # import ipdb; ipdb.set_trace()
-            return make_response(({"review":review.to_dict(), "route": route.to_dict()}), 201)
+            return make_response(({"review":review.to_dict()}), 201)
         except Exception as e:
             return make_response(({"error": str(e)}),400)
 

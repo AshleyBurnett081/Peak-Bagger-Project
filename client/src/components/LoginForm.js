@@ -42,7 +42,7 @@ function LoginForm({saveUser, handleToggleForm}) {
     });
     return (
       <>
-        <form class="form-text" onSubmit={formik.handleSubmit}>
+        <form className="form-text" onSubmit={formik.handleSubmit}>
             <label htmlFor="email">Email:</label>
             <input
                 id="email"
@@ -52,7 +52,7 @@ function LoginForm({saveUser, handleToggleForm}) {
                 value={formik.values.email}
             />
             
-            <label class="form-text" htmlFor="password">Password:</label>
+            <label className="form-text" htmlFor="password">Password:</label>
             <input
                 id="password"
                 name="password"
@@ -61,10 +61,10 @@ function LoginForm({saveUser, handleToggleForm}) {
                 value={formik.values.password}
             />
             
-          <button class="button" type="submit">Login</button>
+          <button className="button" type="submit">Login</button>
         
         </form>
-        <button class="button" onClick={handleToggleForm}>
+        <button className="button" onClick={handleToggleForm}>
         Create new account
         </button>
       </>

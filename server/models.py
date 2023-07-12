@@ -27,11 +27,10 @@ class User(db.Model, SerializerMixin):
     user_routes = db.relationship('UserRoute', back_populates='user')
     reviews = db.relationship('Review', back_populates='user')
     routes = association_proxy('user_routes', 'route')
-    
     #Serialize
     
-    serialize_only = ('id', 'profile_picture', 'first_name', 'last_name', 'user_name', 'age', 'current_zip_code', 'favorite_mountain', 'email', 'created_at', 'updated_at')
-    serialize_rules = ('-user_routes', '-routes')
+    serialize_only = ('id', 'profile_picture', 'first_name', 'last_name', 'user_name', 'age', 'current_zip_code', 'favorite_mountain', 'email', 'created_at', 'updated_at', 'reviews', 'user_routes', 'routes.picture')
+    serialize_rules = ('-user_routes.user', '-user_routes.route')
     
     #Validations
     @validates('profile_picture')
@@ -48,8 +47,8 @@ class User(db.Model, SerializerMixin):
 
     @validates('last_name')
     def validate_last_name(self, key, last_name):
-        if not last_name or not type(str) or not 2 < len(last_name) < 15:
-          raise ValueError('Your last name must be between 2 and 15 characters long')
+        if not last_name or not type(str) or not 2 < len(last_name) < 30:
+          raise ValueError('Your last name must be between 2 and 30 characters long')
         return last_name
 
     @validates('user_name')
@@ -66,12 +65,12 @@ class User(db.Model, SerializerMixin):
 
     @validates('current_zip_code')
     def validate_zip_code(self, key, my_zip_code):
-        if not my_zip_code or not type(int) or not len(my_zip_code) == 5:
+        if not my_zip_code or not type(int) or not len(str(my_zip_code)) == 5:
             raise ValueError('You must enter a valid zip code to join')
         return my_zip_code
     
     @validates('favorite_mountain')
-    def validate_user_name(self, key, mountain):
+    def validate_favorite_mountain(self, key, mountain):
         if not mountain or not 2 < len(mountain) < 35:
           raise ValueError(' Your favorite mountain must be between 2 and 35 characters long')
         return mountain
@@ -110,7 +109,7 @@ class Route(db.Model, SerializerMixin):
     users = association_proxy('user_routes', 'user')
     
     #Serialize
-    serialize_only = ('id', 'mountain_id', 'name', 'difficulty_class', 'length', 'elevation_gain', 'created_at', 'updated_at')
+    serialize_only = ('id', 'mountain_id', 'name', 'difficulty_class', 'length', 'elevation_gain', 'created_at', 'updated_at', 'picture')
     serialize_rules = ('-user_routes', '-reviews', '-mountains')
     
     #Validations
@@ -218,7 +217,7 @@ class UserRoute(db.Model, SerializerMixin):
     route = db.relationship('Route', back_populates='user_routes')
     
     #Serialize
-    serialize_only = ('id', 'date', 'duration', 'comment', 'user_id', 'route_id', 'created_at', 'updated_at')
+    serialize_only = ('id', 'date', 'duration_of_climb', 'comment', 'user_id', 'route_id', 'created_at', 'updated_at', 'route.picture')
     serialize_rules = ('-user.user_routes', '-route.user_routes')
     
     #Validations
@@ -229,12 +228,12 @@ class UserRoute(db.Model, SerializerMixin):
             return current_date
         return ValueError("Invalid date")
     
-    @validates('time')
+    @validates('duration_of_climb')
     def validate_time(self, key, time_taken):
         regex = re.compile(r'^(?:[01]?\d|2[0-3])(?::[0-5]\d){1,2}$')
         if re.fullmatch(regex, time_taken):
             return time_taken
-        return ValueError("Invalid time")
+        return ValueError("Enter duration of the climb in a HH:MM format")
     
     @validates('comment')
     def validate_comment(self, key, new_comment):

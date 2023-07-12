@@ -75,6 +75,7 @@ function App() {
     
   const addReviewToUser = (newReview) => {
     setCurrentUser(current_user => {
+      debugger
       return {
         ...current_user,
         reviews: [
@@ -118,6 +119,8 @@ function App() {
       };
     
 
+      // const userRoutes = user_routes.map(user_route => user_route.route)
+      // const mappedRoutes = routes1.map(route => <RouteCard key={route.id} {...route} currentUser={currentUser}/>)
 
 
       const handleSignoutClick= () => {
@@ -141,12 +144,12 @@ function App() {
         if (!currentUser) {
             return (
             <>
-            <header class="welcome-message">
+            <header className="welcome-message">
               +++++Project Peak Bagger+++++ 
             </header>
-            <navbar>
+            <nav>
               {!showLoginForm ? <LoginForm saveUser={saveUser} handleToggleForm={handleToggleForm}/> : <NewUserForm saveUser={saveUser} handleToggleForm={handleToggleForm}/>}
-            </navbar>
+            </nav>
             <img src="https://www.thoughtco.com/thmb/KYfAVyXgN1h_Jx3C3mt9JthMTSM=/5555x2835/filters:fill(auto,1)/CapitolPeak_DonGrail_GettyImages2-58b5b9545f9b586046c3e970.jpg" alt="!"/>
             </>
             )

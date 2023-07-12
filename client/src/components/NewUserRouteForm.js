@@ -34,7 +34,7 @@ function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUser
                 if (resp.ok) {
                     resp.json()
                     .then(data => {
-                        addUserRouteToUser(data)
+                        addUserRouteToUser(data.user_route)
                     })
                 }
                 else {

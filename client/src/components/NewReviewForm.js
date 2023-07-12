@@ -33,7 +33,8 @@ function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUs
                 if (resp.ok) {
                     resp.json()
                     .then(data => {
-                        addReviewToUser(data)
+                        // debugger
+                        addReviewToUser(data.review)
                     })
                 }
                 else {

@@ -5,8 +5,9 @@ import RouteCard from './RouteCard'
 import NewUserRouteForm from './NewUserRouteForm'
 import NewReviewForm from './NewReviewForm'
 import UpdateUserProfileForm from './UpdateUserProfileForm'
+import RouteCollection from './RouteCollection'
 
-function DriverProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRoute, setRoutes, saveNewReview, addReviewToUser, addUserRouteToUser,}) {
+function UserProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRoute, setRoutes, saveNewReview, addReviewToUser, addUserRouteToUser}) {
     const history = useHistory()
     const [seeForm, setSeeForm] = useState(false) //profile update
     const [seeCreateUserRoute, setCreateUserRoute] = useState(false)
@@ -28,8 +29,9 @@ function DriverProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRo
   
   const {first_name, age, profile_picture, id, user_routes} = currentUser
   
-  // const routes = user_routes.map(user_route => user_route.route)
-  // const mappedRoutes = routes.map(route => <RouteCard key={route.id} {...route} currentUser={currentUser}/>)
+
+
+  
   
   const handleDelete = (e) => {
           fetch(`/users/${id}`,{
@@ -73,7 +75,7 @@ function DriverProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRo
         </Container>
         <h2 class="form-text">My Routes:</h2>
         <div class="container">
-        ////
+        <RouteCollection routes={currentUser.user_routes} />
         </div>
         <footer>
         <button class="button" variant='secondary'onClick={handleDelete}> Delete account</button>
@@ -82,4 +84,4 @@ function DriverProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRo
     )
   }
   
-  export default DriverProfile
+  export default UserProfile
