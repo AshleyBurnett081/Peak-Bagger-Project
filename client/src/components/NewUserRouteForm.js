@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {useFormik} from "formik";
 import * as yup from "yup";
 
+function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUserRouteToUser, routes}){
 
-function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUserRouteToUser}){
 
+    
+    const mappedRoutes = routes.map(route => 
+        <option key={route.id} value={route.id} >{route.name}</option>
+    )
+
+    
+    
     const userSchema = yup.object({
         comment: yup.string().required("Leave a comment about your climb"),
         duration_of_climb: yup.string().required("Record the duration of your climb"),
@@ -48,16 +55,18 @@ function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUser
     });
     return (
         <div>
-        <form class="form-text" onSubmit={formik.handleSubmit}>
+        <form className="form-text" onSubmit={formik.handleSubmit}>
             <label htmlFor="route_id">Route Id:</label>
-            <input
+            <select
                 id="route_id"
                 name="route_id"
-                type="text"
+                
                 onChange={formik.handleChange}
                 value={formik.values.route_id} 
-            />
-            <label class="form-text" htmlFor="comment">Comment:</label>
+            >
+            <option value="">/Select a Route</option>
+            {mappedRoutes}</select>
+            <label className="form-text" htmlFor="comment">Comment:</label>
             <input
                 id="comment"
                 name="comment"
@@ -66,7 +75,7 @@ function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUser
                 value={formik.values.comment} 
             />
 
-            <label class ="form-text"htmlFor="duration_of_climb">Duration of Climb:</label>
+            <label className ="form-text"htmlFor="duration_of_climb">Duration of Climb:</label>
             <input
                 id="duration_of_climb"
                 name="duration_of_climb"
@@ -96,3 +105,7 @@ function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUser
 }
 
 export default NewUserRouteForm
+
+
+
+

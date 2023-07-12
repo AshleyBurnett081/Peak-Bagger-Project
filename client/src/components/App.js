@@ -98,6 +98,8 @@ function App() {
     })
   }  
     
+  
+
     
     
     const saveNewUserRoute = (new_user_route) => {
@@ -164,7 +166,7 @@ return (
         <UserCollection handleSignoutClick={handleSignoutClick} users={users} />
       </Route>
       <Route exact path = '/'>
-      <UserProfile currentUser={currentUser} handleSignoutClick={handleSignoutClick} saveUser={saveUser} saveNewUserRoute={saveNewUserRoute} saveNewReview={saveNewReview} userRoutes ={userRoutes} addReviewToUser = {addReviewToUser} addUserRouteToUser={addUserRouteToUser} />
+      <UserProfile currentUser={currentUser} handleSignoutClick={handleSignoutClick} saveUser={saveUser} saveNewUserRoute={saveNewUserRoute} saveNewReview={saveNewReview} userRoutes ={userRoutes} addReviewToUser = {addReviewToUser} addUserRouteToUser={addUserRouteToUser} routes={routes}  />
       </Route>
       <Route path="/routes">
         <RouteCollection routes={routes} />

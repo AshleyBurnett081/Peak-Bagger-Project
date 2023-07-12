@@ -7,7 +7,7 @@ import NewReviewForm from './NewReviewForm'
 import UpdateUserProfileForm from './UpdateUserProfileForm'
 import RouteCollection from './RouteCollection'
 
-function UserProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRoute, setRoutes, saveNewReview, addReviewToUser, addUserRouteToUser}) {
+function UserProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRoute, setRoutes, saveNewReview, addReviewToUser, addUserRouteToUser, routes}) {
     const history = useHistory()
     const [seeForm, setSeeForm] = useState(false) //profile update
     const [seeCreateUserRoute, setCreateUserRoute] = useState(false)
@@ -69,7 +69,7 @@ function UserProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRout
             <button class="button" variant='secondary' onClick={toggleForm}>Edit your profile</button>
             {seeForm? <UpdateUserProfileForm currentUser={currentUser} saveUser={saveUser}/> : null}
             <button class="button" variant='secondary' onClick={toggleUserRoute}>Add A Route To Your Collection!</button>
-            {seeCreateUserRoute ? <NewUserRouteForm seeCreateUserRoute={seeCreateUserRoute} saveNewUserRoute={saveNewUserRoute} setRoutes={setRoutes} addUserRouteToUser={addUserRouteToUser} currentUser={currentUser} /> : null}
+            {seeCreateUserRoute ? <NewUserRouteForm seeCreateUserRoute={seeCreateUserRoute} saveNewUserRoute={saveNewUserRoute} setRoutes={setRoutes} addUserRouteToUser={addUserRouteToUser} currentUser={currentUser} routes={routes} /> : null}
             <button class="button" variant='secondary' onClick={toggleReview}>Review A Route!</button>
             {seeReviewForm ? <NewReviewForm seeReviewForm={seeReviewForm} saveNewReview={saveNewReview} setNewReview={setNewReview} currentUser={currentUser} addReviewToUser={addReviewToUser}/> : null}
         </Container>
