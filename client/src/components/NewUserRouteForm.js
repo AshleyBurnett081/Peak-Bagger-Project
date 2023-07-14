@@ -56,16 +56,16 @@ function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUser
     return (
         <div>
         <form className="form-text" onSubmit={formik.handleSubmit}>
-            <label htmlFor="route_id">Route Id:</label>
+            <label htmlFor="route_id">Select Your Route:</label>
             <select
                 id="route_id"
                 name="route_id"
-                
                 onChange={formik.handleChange}
                 value={formik.values.route_id} 
             >
-            <option value="">/Select a Route</option>
+            <option value="">Select A Route</option>
             {mappedRoutes}</select>
+            
             <label className="form-text" htmlFor="comment">Comment:</label>
             <input
                 id="comment"
@@ -84,7 +84,7 @@ function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUser
                 value={formik.values.duration_of_climb}
             /> 
   
-            <label class ="form-text"htmlFor="date">Date:</label>
+            <label className ="form-text"htmlFor="date">Date:</label>
             <input
                 id="date"
                 name="date"
@@ -92,11 +92,11 @@ function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUser
                 onChange={formik.handleChange}
                 value={formik.values.date}
             /> 
-            <button class='button' type="reset">Reset Form</button>
-            <button class="button" type="submit">Submit</button>
+            <button className='button' type="reset">Reset Form</button>
+            <button className="button" type="submit">Submit</button>
 
         </form>
-        <button class="button" onClick={handleToggleForm}>
+        <button className="button" onClick={handleToggleForm}>
         Add this route to your collection!
         </button>
         </div>

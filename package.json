@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "formik": "^2.4.2",
-    "react-session-api": "^1.1.0"
+    "react-session-api": "^1.1.0",
+    "websocket": "^1.0.34",
+    "websockets": "^0.2.0"
   }
 }
