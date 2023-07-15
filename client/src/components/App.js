@@ -8,6 +8,11 @@ import LoginForm from "./LoginForm";
 import UserProfile from "./UserProile"
 
 
+
+
+
+
+
 function App() {
 
 
@@ -152,7 +157,7 @@ function App() {
             <nav>
               {!showLoginForm ? <LoginForm saveUser={saveUser} handleToggleForm={handleToggleForm}/> : <NewUserForm saveUser={saveUser} handleToggleForm={handleToggleForm}/>}
             </nav>
-            <img src="https://www.thoughtco.com/thmb/KYfAVyXgN1h_Jx3C3mt9JthMTSM=/5555x2835/filters:fill(auto,1)/CapitolPeak_DonGrail_GettyImages2-58b5b9545f9b586046c3e970.jpg" alt="!"/>
+            <img src="https://www.thoughtco.com/thmb/KYfAVyXgN1h_Jx3C3mt9JthMTSM=/5555x2835/filters:fill(auto,1)/CapitolPeak_DonGrail_GettyImages2-58b5b9545f9b586046c3e970.jpg" alt="Capital Peak"/>
             </>
             )
             }  
@@ -161,21 +166,22 @@ function App() {
 
 return (
   <div>
-    <Switch>
-      <Route path = '/users'>
-        <UserCollection handleSignoutClick={handleSignoutClick} users={users} />
-      </Route>
-      <Route exact path = '/'>
-      <UserProfile currentUser={currentUser} handleSignoutClick={handleSignoutClick} saveUser={saveUser} saveNewUserRoute={saveNewUserRoute} saveNewReview={saveNewReview} userRoutes ={userRoutes} addReviewToUser = {addReviewToUser} addUserRouteToUser={addUserRouteToUser} routes={routes}  />
-      </Route>
-      <Route path="/routes">
-        <RouteCollection routes={routes} />
-      </Route>
-      <Route path = "/mountains">
-        <MountainCollection mountains={mountains}/>
-      </Route> 
-    </Switch>
+  <Switch>
+  <Route path = '/users'>
+  <UserCollection handleSignoutClick={handleSignoutClick} users={users} />
+  </Route>
+  <Route exact path = '/'>
+  <UserProfile currentUser={currentUser} handleSignoutClick={handleSignoutClick} saveUser={saveUser} saveNewUserRoute={saveNewUserRoute} saveNewReview={saveNewReview} userRoutes ={userRoutes} addReviewToUser = {addReviewToUser} addUserRouteToUser={addUserRouteToUser} routes={routes}  />
+  </Route>
+  <Route path="/routes">
+  <RouteCollection routes={routes} />
+  </Route>
+  <Route path = "/mountains">
+  <MountainCollection mountains={mountains}/>
+  </Route> 
+  </Switch>
   </div>
+
 );
 }
 export default App;

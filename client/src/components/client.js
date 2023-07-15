@@ -1,6 +1,8 @@
 const connection = new WebSocket("ws://localhost:8080");
 const button = document.querySelector("#send");
 
+
+
 connection.onopen = (event) => {
     console.log("WebSocket is open now.");
 };
@@ -12,12 +14,20 @@ connection.onclose = (event) => {
 connection.onerror = (event) => {
     console.error("WebSocket error observed:", event);
 };
-
-connection.onmessage = (event) => {
-
-  const chat = document.querySelector("#chat");
-  chat.innerHTML += ('<li>'+ event.data +'</li>' );
+const handleWebSocketMessage = (event) => {
+  
+  const reader = new FileReader();
+  reader.onload = () => {
+    const chat = document.querySelector("#chat");
+    chat.innerHTML += ('<li>'+ reader.result +'</li>' );
+    
+  };
+  reader.readAsText(event.data);
 };
+
+
+connection.onmessage = handleWebSocketMessage;
+
 
 button.addEventListener("click", () => {
   const name = document.querySelector("#name");
@@ -31,3 +41,5 @@ button.addEventListener("click", () => {
   name.value = "";
   message.value = "";
 });
+
+ 
