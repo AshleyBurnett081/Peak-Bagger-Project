@@ -16,6 +16,7 @@ connection.onerror = (event) => {
 };
 const handleWebSocketMessage = (event) => {
   
+  
   const reader = new FileReader();
   reader.onload = () => {
     const chat = document.querySelector("#chat");
@@ -42,4 +43,3 @@ button.addEventListener("click", () => {
   message.value = "";
 });
 
- 

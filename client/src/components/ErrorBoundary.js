@@ -1,21 +1,25 @@
-// import React, {useState, useContext, createContext} from 'react';
+import React, {useState, useContext, createContext} from 'react';
 
-// export const ErrorContext = createContext({hasError: false});
+const ErrorContext = createContext();
 
-// export const ErrorBoundary = (props) => {
-//     const [hasError, setHasError] = useState(false);
+const ErrorBoundary = ({children}) => {
+    const [hasError, setHasError] = useState(false);
+    const [errors, setErrors] = useState([]);
     
-//     const handleError = (error) => {
-//         setHasError(true);
-//         console.error(error)
-//     };
+    const handleAddError = (error) =>{
+        setErrors([...errors, error])
+    }
+    
+    const handleError = (error) => {
+        setHasError(true);
+        console.error(error)
+    };
 
-//     if (hasError) {
-//         return <p>Someting Went Wrong!</p>;
-//     }
-//     return <ErrorContext.Provider value={{hasError, handleError}}> 
-//     {props.childern} 
-//     </ErrorContext.Provider>
-// }
+    return (
+    <ErrorContext.Provider value={{hasError, handleError, errors, handleAddError}}> 
+    {children}
+    </ErrorContext.Provider>
+    )
+};
 
-// export default ErrorBoundary
+export {ErrorBoundary, ErrorContext}

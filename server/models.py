@@ -79,9 +79,11 @@ class User(db.Model, SerializerMixin):
     @validates('email')
     def emailValid(self, key, current_email_address):
         regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(.[A-Z|a-z]{2,})+')
-        if re.fullmatch(regex, current_email_address):
-            return current_email_address
-        return ValueError("Invalid email address")
+        if not re.fullmatch(regex, current_email_address):
+            raise ValueError("Invalid email address")
+        if User.query.filter_by(email= current_email_address).first():
+            raise ValueError('Email already in use')
+        return current_email_address
     
     @validates('password')
     def password_valid(self, key, current_password):
