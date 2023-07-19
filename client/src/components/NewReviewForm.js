@@ -1,7 +1,7 @@
 import React from "react";
 import {useFormik} from "formik";
 import * as yup from "yup";
-
+import Button from '@mui/material/Button';
 
 function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUser}){
 
@@ -75,13 +75,13 @@ function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUs
                 value={formik.values.comment} 
             />
   
-            <button class='button' type="reset">Reset Form</button>
-            <button class="button" type="submit">Submit</button>
+            <Button variant='contained' type="reset">Reset Form</Button>
+            <Button variant='contained'type="submit">Submit</Button>
 
         </form>
-        <button class="button" onClick={handleToggleForm}>
+        <Button variant='contained' onClick={handleToggleForm}>
         Add this route to your collection!
-        </button>
+        </Button>
         </div>
     )
     

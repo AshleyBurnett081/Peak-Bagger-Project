@@ -16,9 +16,9 @@ function UserCollection({users}) {
     return (
       <div>
          <Navbar>
-          <button class="button" variant='secondary' onClick={()=>history.push("/")}>Home</button>      
-          <button class="button" variant='secondary' onClick={()=>history.push("/routes")}>Routes</button>
-          <button class="button" variant='secondary'>Signout</button>
+          <Button variant='contained' onClick={()=>history.push("/")}>Home</Button>      
+          <Button variant='contained' onClick={()=>history.push("/routes")}>Routes</Button>
+          <Button variant='contained'>Signout</Button>
         </Navbar>
         <h3 class="form-text">User Profiles</h3>
         <div class="container">

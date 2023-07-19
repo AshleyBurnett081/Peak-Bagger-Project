@@ -1,7 +1,7 @@
 import React from "react"
 import {useFormik} from "formik";
 import * as yup from "yup";
-
+import Button from '@mui/material/Button';
 
 function UpdateUserProfileForm({currentUser, saveUser}) {
 
@@ -126,7 +126,7 @@ function UpdateUserProfileForm({currentUser, saveUser}) {
                 value={formik.values.favorite_mountain}
             />
             
-          <button type="submit">Update</button>
+            <Button variant='contained' type="submit">Update</Button>
         
         </form>
       </>

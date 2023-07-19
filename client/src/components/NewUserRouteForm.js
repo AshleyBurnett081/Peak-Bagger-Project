@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {useFormik} from "formik";
 import * as yup from "yup";
+import Button from '@mui/material/Button';
 
 function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUserRouteToUser, routes}){
 
@@ -92,13 +93,13 @@ function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUser
                 onChange={formik.handleChange}
                 value={formik.values.date}
             /> 
-            <button className='button' type="reset">Reset Form</button>
-            <button className="button" type="submit">Submit</button>
+            <Button variant='contained' type="reset">Reset Form</Button>
+            <Button  variant='contained' type="submit">Submit</Button>
 
         </form>
-        <button className="button" onClick={handleToggleForm}>
+        <Button variant='contained' onClick={handleToggleForm}>
         Add this route to your collection!
-        </button>
+        </Button>
         </div>
     )
     

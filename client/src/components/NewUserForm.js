@@ -3,6 +3,7 @@ import React from "react";
 import {useFormik} from "formik";
 import * as yup from "yup";
 import { ErrorContext } from "./ErrorBoundary";
+import Button from '@mui/material/Button';
 
 function NewUserForm({saveUser, handleToggleForm}) {
     
@@ -147,13 +148,13 @@ function NewUserForm({saveUser, handleToggleForm}) {
                 onChange={formik.handleChange}
                 value={formik.values.favorite_mountain}
             />
-            <button class="button" type= "reset">Clear Form</button>
-            <button class="button" type="submit">Submit</button>
+            <Button variant='contained' type= "reset">Clear Form</Button>
+            <Button variant='contained' type="submit">Submit</Button>
 
         </form>
-        <button class="button" onClick={handleToggleForm}>
+        <Button variant='contained' onClick={handleToggleForm}>
         Do you already climb with us? Try Logging In!
-        </button>
+        </Button>
         </div>
     )
     

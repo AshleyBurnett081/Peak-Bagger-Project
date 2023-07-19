@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {ChatEngine} from 'react-chat-engine';
 import { Switch, Route } from "react-router-dom";
 import MountainCollection from "./MountainCollection";
 import RouteCollection from './RouteCollection';
@@ -6,7 +7,7 @@ import UserCollection from './UserCollection';
 import NewUserForm from "./NewUserForm";
 import LoginForm from "./LoginForm";
 import UserProfile from "./UserProile"
-import ChatWindow from "./ChatWindow.js"
+
 
 
 
@@ -180,7 +181,11 @@ return (
   <MountainCollection mountains={mountains}/>
   </Route>
   <Route path = "/chat">
-  <ChatWindow />
+  <ChatEngine
+ 			projectID='4086a57e-cd97-4896-b6bd-72d47c56b0c4'
+ 			userName='Ashley'
+ 			userSecret='She-Ra'
+ 		/>
   </Route> 
   </Switch>
   </div>

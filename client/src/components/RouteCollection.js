@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react'
-import {Card, Button, Row, Col, Container, Navbar} from 'react-bootstrap'
+import React from 'react'
+import { Col } from 'react-bootstrap'
 import {useHistory, Link} from 'react-router-dom'
 import RouteCard from './RouteCard'
-
+import Button from '@mui/material/Button';
 function MountainCollection({routes, handleSignoutClick}) {
 
     const history = useHistory()
@@ -15,11 +15,11 @@ function MountainCollection({routes, handleSignoutClick}) {
       
     return (
       <div>
-         <Navbar>
-          <button class="button" variant='secondary' onClick={()=>history.push("/")}>Home</button>      
-          <button class="button" variant='secondary' onClick={()=>history.push("/mountains")}>Mountains</button>
-          <button class="button" variant='secondary' onClick={handleSignoutClick}>Signout</button>
-        </Navbar>
+         
+          <Button variant='contained' onClick={()=>history.push("/")}>Home</Button>      
+          <Button variant='contained' onClick={()=>history.push("/mountains")}>Mountains</Button>
+          <Button variant='contained' onClick={handleSignoutClick}>Signout</Button>
+        
         <h3 class="form-text">Routes</h3>
         <div class="container">
           {mappedRoutes}

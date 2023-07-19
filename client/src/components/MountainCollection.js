@@ -16,9 +16,9 @@ function MountainCollection({mountains, handleSignoutClick}) {
     return (
       <div>
          <Navbar>
-          <button class="button" variant='secondary' onClick={()=>history.push("/")}>Home</button>      
-          <button class="button" variant='secondary' onClick={()=>history.push("/routes")}>Routes</button>
-          <button class="button" variant='secondary' onClick={handleSignoutClick}>Signout</button>
+          <Button variant='contained'onClick={()=>history.push("/")}>Home</Button>      
+          <Button variant='contained'onClick={()=>history.push("/routes")}>Routes</Button>
+          <Button variant='contained'onClick={handleSignoutClick}>Signout</Button>
         </Navbar>
         <h3 class="form-text">Mountains</h3>
         <div class="container">

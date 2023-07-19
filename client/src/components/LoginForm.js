@@ -1,7 +1,7 @@
 import React from "react"
 import {useFormik} from "formik";
 import * as yup from "yup";
-
+import Button from '@mui/material/Button';
 
 function LoginForm({saveUser, handleToggleForm}) {
 
@@ -61,12 +61,12 @@ function LoginForm({saveUser, handleToggleForm}) {
                 value={formik.values.password}
             />
             
-          <button className="button" type="submit">Login</button>
+          <Button variant='contained' type="submit">Login</Button>
         
         </form>
-        <button className="button" onClick={handleToggleForm}>
+        <Button variant='contained' onClick={handleToggleForm}>
         Create new account
-        </button>
+        </Button>
       </>
       )
     }
