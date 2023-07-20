@@ -3,8 +3,19 @@ import {useFormik} from "formik";
 import * as yup from "yup";
 import Button from '@mui/material/Button';
 
-function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUser}){
+function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUser, routes}){
 
+    
+    const mappedRoutes = routes.map(route => 
+        <option key={route.id} value={route.id} >{route.name}</option>
+    )    
+    
+    
+    
+    
+    
+    
+    
     const userSchema = yup.object({
         comment: yup.string().required("Describe your climb"),
         rating: yup.string().required("Rate your route"),
@@ -49,14 +60,17 @@ function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUs
     return (
         <div>
         <form className="form-text" onSubmit={formik.handleSubmit}>
-            <label htmlFor="route_id">Route_id:</label>
-            <input
+            <label htmlFor="route_id">Select Your Route:</label>
+            <select
                 id="route_id"
                 name="route_id"
-                type="text"
                 onChange={formik.handleChange}
                 value={formik.values.route_id} 
-            />
+            >
+            <option value= ''>Select A Route</option>
+            {mappedRoutes}</select>
+            
+            
             <label className="form-text" htmlFor="rating">Rating:</label>
             <input
                 id="rating"

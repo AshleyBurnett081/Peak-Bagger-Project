@@ -80,7 +80,6 @@ function App() {
     
   const addReviewToUser = (newReview) => {
     setCurrentUser(current_user => {
-      debugger
       return {
         ...current_user,
         reviews: [

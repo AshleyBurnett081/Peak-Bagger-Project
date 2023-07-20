@@ -77,7 +77,7 @@ function UserProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRout
             <Button  variant='contained' onClick={toggleUserRoute}>Add A Route To Your Collection!</Button>
             {seeCreateUserRoute ? <NewUserRouteForm seeCreateUserRoute={seeCreateUserRoute} saveNewUserRoute={saveNewUserRoute} setRoutes={setRoutes} addUserRouteToUser={addUserRouteToUser} currentUser={currentUser} routes={routes} /> : null}
             <Button  variant='contained' onClick={toggleReview}>Review A Route!</Button>
-            {seeReviewForm ? <NewReviewForm seeReviewForm={seeReviewForm} saveNewReview={saveNewReview} setNewReview={setNewReview} currentUser={currentUser} addReviewToUser={addReviewToUser}/> : null}
+            {seeReviewForm ? <NewReviewForm seeReviewForm={seeReviewForm} saveNewReview={saveNewReview} setNewReview={setNewReview} currentUser={currentUser} addReviewToUser={addReviewToUser} routes={routes}/> : null}
         </div>
         <div className="container">
         <UserRouteContainer routes={currentUser.user_routes} currentUser={currentUser} />   
@@ -97,7 +97,5 @@ function UserProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRout
 
 
 
-  // <div className="container">
-  // <UserRouteContainer userRoutes={userRoutes} />
-  // </div>
+
  

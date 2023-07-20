@@ -1,4 +1,4 @@
-import React, {useState, useContext, createContext} from 'react';
+import React, {useState, createContext} from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 
 const ErrorContext = createContext();

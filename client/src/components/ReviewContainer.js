@@ -17,7 +17,7 @@ function ReviewContainer({reviews}) {
          
           
         
-        <h3 className="form-text">Reviews:</h3>
+        <h2 className="form-text"> My Reviews:</h2>
         <div className="container">
           {mappedReviews}
         </div>
