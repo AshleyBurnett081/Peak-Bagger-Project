@@ -4,18 +4,16 @@ import { Link, useLocation } from 'react-router-dom';
 
 
 
-function MountainCard({name, elevation, number_of_routes, location, emergency_contact_information, picture, id}) {
+function MountainCard({name, elevation, number_of_routes, location, picture}) {
 
         return (
-          <Card style={{ width: '18rem' }}>
-            <Card.Img src={picture} alt="name" height={200} width={150} />
+          <Card className="card" style={{ width: '18rem' }}>
+            <Card.Img  src={picture} alt={name} height={150} width={150} />
             <Card.Body className="text-center">
-              <Card.Title class="form-text">Name: {name}</Card.Title>
-              <Card.Title class="form-text">Elevation: {elevation}</Card.Title>
-              <Card.Title class="form-text">Number of Routes: {number_of_routes}</Card.Title>
-              <Card.Title class="form-text">Location: {location}</Card.Title>
-              <Card.Title class="form-text">Emergency Contact Number: {emergency_contact_information}</Card.Title>
-              <Card.Title class="form-text">Mountain Id: {id}</Card.Title>
+              <Card.Title className="name-text">{name}</Card.Title>
+              <Card.Title className="form-text">{elevation} ft. </Card.Title>
+              <Card.Title className="difficulty-text">{number_of_routes} Routes</Card.Title>
+              <Card.Title className="form-text">{location}</Card.Title>
             </Card.Body>
           </Card>
         );

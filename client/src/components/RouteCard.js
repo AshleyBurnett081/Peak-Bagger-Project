@@ -7,15 +7,15 @@ import { Link, useLocation } from 'react-router-dom';
 function RouteCard({id, mountain_id, name, difficulty_class, length, elevation_gain, picture}) {
 
         return (
-          <Card style={{ width: '18rem' }}>
-            <Card.Img src={picture} alt="name" height={200} width={150} />
+          <Card className='card'style={{ width: '18rem' }}>
+            <Card.Img src={picture} alt={name} height={200} width={150} />
             <Card.Body className="text-center">
-              <Card.Title class="form-text">Name: {name}</Card.Title>
-              <Card.Title class="form-text">Elevation Gain: {elevation_gain}</Card.Title>
-              <Card.Title class="form-text">Difficulty Class: {difficulty_class}</Card.Title>
-              <Card.Title class="form-text">Length: {length} Miles</Card.Title>
-              <Card.Title class="form-text">Mountain Id: {mountain_id}</Card.Title>
-              <Card.Title class="form-text">Id: {id} Miles</Card.Title>
+              <Card.Title className="name-text">{name}</Card.Title>
+              <Card.Title className="form-text">Elevation Gain: {elevation_gain} ft.</Card.Title>
+              <Card.Title className="difficulty-text"> Class {difficulty_class}</Card.Title>
+              <Card.Title className="form-text">Length: {length} Miles</Card.Title>
+
+
               </Card.Body>
           </Card>
         );

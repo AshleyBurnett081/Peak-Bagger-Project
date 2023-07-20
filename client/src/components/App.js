@@ -6,8 +6,7 @@ import RouteCollection from './RouteCollection';
 import UserCollection from './UserCollection';
 import NewUserForm from "./NewUserForm";
 import LoginForm from "./LoginForm";
-import UserProfile from "./UserProile"
-
+import UserProfile from "./UserProile";
 
 
 

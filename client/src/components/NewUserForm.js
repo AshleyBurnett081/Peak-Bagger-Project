@@ -68,7 +68,7 @@ function NewUserForm({saveUser, handleToggleForm}) {
     return (
         <div>
         <form onSubmit={formik.handleSubmit}>
-            <label class="form-text" htmlFor="first_name">First Name:</label>
+            <label className="form-text" htmlFor="first_name">First Name:</label>
             <input
                 id="first_name"
                 name="first_name"
@@ -77,7 +77,7 @@ function NewUserForm({saveUser, handleToggleForm}) {
                 value={formik.values.first_name}
             />
 
-            <label class="form-text" htmlFor="last_name">Last Name:</label>
+            <label className="form-text" htmlFor="last_name">Last Name:</label>
             <input
                 id="last_name"
                 name="last_name"
@@ -86,7 +86,7 @@ function NewUserForm({saveUser, handleToggleForm}) {
                 value={formik.values.last_name}
             />
 
-            <label class="form-text" htmlFor="email">Email:</label>
+            <label className="form-text" htmlFor="email">Email:</label>
             <input
                 id="email"
                 name="email"
@@ -95,7 +95,7 @@ function NewUserForm({saveUser, handleToggleForm}) {
                 value={formik.values.email}
             />
 
-            <label class="form-text" htmlFor="password">Password:</label>
+            <label className="form-text" htmlFor="password">Password:</label>
             <input
                 id="password"
                 name="password"
@@ -104,7 +104,7 @@ function NewUserForm({saveUser, handleToggleForm}) {
                 value={formik.values.password}
             />
 
-            <label class="form-text" htmlFor="user_name">User Name:</label>
+            <label className="form-text" htmlFor="user_name">User Name:</label>
             <input
                 id="user_name"
                 name="user_name"
@@ -113,7 +113,7 @@ function NewUserForm({saveUser, handleToggleForm}) {
                 value={formik.values.user_name}
             />
 
-            <label class="form-text" htmlFor="age">Age:</label>
+            <label className="form-text" htmlFor="age">Age:</label>
             <input
                 id="age"
                 name="age"
@@ -122,7 +122,7 @@ function NewUserForm({saveUser, handleToggleForm}) {
                 value={formik.values.age}
             />
 
-            <label class="form-text" htmlFor="current_zip_code">Zip Code:</label>
+            <label className="form-text" htmlFor="current_zip_code">Zip Code:</label>
             <input
                 id="current_zip_code"
                 name="current_zip_code"
@@ -131,7 +131,7 @@ function NewUserForm({saveUser, handleToggleForm}) {
                 value={formik.values.current_zip_code}
             />
 
-            <label class="form-text" htmlFor="profile_picture">Profile Picture URL:</label>
+            <label className="form-text" htmlFor="profile_picture">Profile Picture URL:</label>
             <input
                 id="profile_picture"
                 name="profile_picture"
@@ -140,7 +140,7 @@ function NewUserForm({saveUser, handleToggleForm}) {
                 value={formik.values.profile_picture}
             />
 
-            <label class="form-text" htmlFor="favorite_mountain">Profile Picture URL:</label>
+            <label className="form-text" htmlFor="favorite_mountain">Profile Picture URL:</label>
             <input
                 id="favorite_mountain"
                 name="favorite_mountain"

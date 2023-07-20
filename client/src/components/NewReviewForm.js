@@ -48,7 +48,7 @@ function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUs
     });
     return (
         <div>
-        <form class="form-text" onSubmit={formik.handleSubmit}>
+        <form className="form-text" onSubmit={formik.handleSubmit}>
             <label htmlFor="route_id">Route_id:</label>
             <input
                 id="route_id"
@@ -57,7 +57,7 @@ function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUs
                 onChange={formik.handleChange}
                 value={formik.values.route_id} 
             />
-            <label class="form-text" htmlFor="rating">Rating:</label>
+            <label className="form-text" htmlFor="rating">Rating:</label>
             <input
                 id="rating"
                 name="rating"
@@ -66,7 +66,7 @@ function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUs
                 value={formik.values.rating} 
             />
 
-            <label class="form-text" htmlFor="comment">Comment:</label>
+            <label className="form-text" htmlFor="comment">Comment:</label>
             <input
                 id="comment"
                 name="comment"

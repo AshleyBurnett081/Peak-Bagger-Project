@@ -18,10 +18,10 @@ function MountainCollection({routes, handleSignoutClick}) {
          
           <Button variant='contained' onClick={()=>history.push("/")}>Home</Button>      
           <Button variant='contained' onClick={()=>history.push("/mountains")}>Mountains</Button>
-          <Button variant='contained' onClick={handleSignoutClick}>Signout</Button>
+          
         
-        <h3 class="form-text">Routes</h3>
-        <div class="container">
+        <h3 className="form-text">Routes:</h3>
+        <div className="container">
           {mappedRoutes}
         </div>
       </div>

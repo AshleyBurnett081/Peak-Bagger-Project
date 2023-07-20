@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import {Card, Button, Row, Col, Container, Navbar} from 'react-bootstrap'
+import {Col, Container, Navbar} from 'react-bootstrap'
 import {useHistory, Link} from 'react-router-dom'
 import UserCard from './UserCard'
+import Button from '@mui/material/Button';
+
 
 function UserCollection({users}) {
 
@@ -15,13 +17,10 @@ function UserCollection({users}) {
       
     return (
       <div>
-         <Navbar>
           <Button variant='contained' onClick={()=>history.push("/")}>Home</Button>      
           <Button variant='contained' onClick={()=>history.push("/routes")}>Routes</Button>
-          <Button variant='contained'>Signout</Button>
-        </Navbar>
-        <h3 class="form-text">User Profiles</h3>
-        <div class="container">
+        <h3 className="form-text">User Profiles</h3>
+        <div className="container">
           {mappedUsers}
         </div>
       </div>

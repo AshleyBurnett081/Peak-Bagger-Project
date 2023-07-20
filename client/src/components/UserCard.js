@@ -10,14 +10,14 @@ function UserCard({profile_picture, first_name, last_name, user_name, age, curre
           <Card style={{ width: '18rem' }}>
             <Card.Img src={profile_picture} alt="name" height={200} width={150} />
             <Card.Body className="text-center">
-              <Card.Title class="form-text">User Name: {user_name}</Card.Title>
-              <Card.Title class="form-text">First Name: {first_name}</Card.Title>
-              <Card.Title class="form-text">Last Name: {last_name}</Card.Title>
-              <Card.Title class="form-text">age: {age}</Card.Title>
-              <Card.Title class="form-text">Location: {current_zip_code}</Card.Title>
-              <Card.Title class="form-text">Favorite Mountain: {favorite_mountain}</Card.Title>
-              <Card.Title class="form-text">Email: {email}</Card.Title>
-              <Card.Title class="form-text">ID: {id}</Card.Title>
+              <Card.Title className="form-text">User Name: {user_name}</Card.Title>
+              <Card.Title className="form-text">First Name: {first_name}</Card.Title>
+              <Card.Title className="form-text">Last Name: {last_name}</Card.Title>
+              <Card.Title className="form-text">age: {age}</Card.Title>
+              <Card.Title className="form-text">Location: {current_zip_code}</Card.Title>
+              <Card.Title className="form-text">Favorite Mountain: {favorite_mountain}</Card.Title>
+              <Card.Title className="form-text">Email: {email}</Card.Title>
+              <Card.Title className="form-text">ID: {id}</Card.Title>
             </Card.Body>
           </Card>
         );

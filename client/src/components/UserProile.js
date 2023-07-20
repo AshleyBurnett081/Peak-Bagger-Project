@@ -1,14 +1,16 @@
 import React, {useState, useEffect} from 'react'
 import {useParams, useHistory, Link} from 'react-router-dom'
 import {Card, Container, Navbar} from 'react-bootstrap'
-import RouteCard from './RouteCard'
+import DeleteIcon from '@mui/icons-material/DeleteForever';
 import NewUserRouteForm from './NewUserRouteForm'
 import NewReviewForm from './NewReviewForm'
 import UpdateUserProfileForm from './UpdateUserProfileForm'
 import RouteCollection from './RouteCollection'
 import Button from '@mui/material/Button';
 
-function UserProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRoute, setRoutes, saveNewReview, addReviewToUser, addUserRouteToUser, routes}) {
+
+
+function UserProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRoute, setRoutes, saveNewReview, addReviewToUser, addUserRouteToUser, routes, reviews}) {
     const history = useHistory()
     const [seeForm, setSeeForm] = useState(false) //profile update
     const [seeCreateUserRoute, setCreateUserRoute] = useState(false)
@@ -54,7 +56,7 @@ function UserProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRout
     return (
       <div>
         <header> 
-        <h3 class="form-text">Welcome To Peak Bagger, {currentUser.first_name}!</h3>
+        <h3 className="form-text">Welcome To Peak Bagger, {currentUser.first_name}!</h3>
         </header>
           <Navbar>
           <Button variant="contained" onClick={()=>history.push("/users")}>See all Climbers </Button>
@@ -64,26 +66,30 @@ function UserProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRout
           <Button  variant='contained' onClick={handleSignoutClick}>Signout</Button>
           </Navbar>
         
-        <Container>
+        <div>
             <Card.Img variant="top" src={profile_picture}/>
-            <Card.Title class="form-text"> {first_name}</Card.Title>
-            <Card.Text class="form-text"> {age} years old</Card.Text>
+            <Card.Title className="form-text"> {first_name}</Card.Title>
+            <Card.Text className="form-text"> {age} years old</Card.Text>
             <Button  variant='contained' onClick={toggleForm}>Edit your profile</Button>
             {seeForm? <UpdateUserProfileForm currentUser={currentUser} saveUser={saveUser}/> : null}
             <Button  variant='contained' onClick={toggleUserRoute}>Add A Route To Your Collection!</Button>
             {seeCreateUserRoute ? <NewUserRouteForm seeCreateUserRoute={seeCreateUserRoute} saveNewUserRoute={saveNewUserRoute} setRoutes={setRoutes} addUserRouteToUser={addUserRouteToUser} currentUser={currentUser} routes={routes} /> : null}
             <Button  variant='contained' onClick={toggleReview}>Review A Route!</Button>
             {seeReviewForm ? <NewReviewForm seeReviewForm={seeReviewForm} saveNewReview={saveNewReview} setNewReview={setNewReview} currentUser={currentUser} addReviewToUser={addReviewToUser}/> : null}
-        </Container>
-        <h2 class="form-text">My Routes:</h2>
-        <div class="container">
-        <RouteCollection routes={currentUser.user_routes} />
         </div>
         <footer>
-        <Button  variant='contained' onClick={handleDelete}> Delete account</Button>
+        <Button variant='contained' color="error" startIcon={<DeleteIcon />} onClick={handleDelete}> Delete account</Button>
         </footer> 
         </div> 
     )
   }
   
   export default UserProfile
+
+
+
+
+  // <div className="container">
+  // <UserRouteContainer userRoutes={userRoutes} />
+  // </div>
+ 
