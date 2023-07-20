@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react'
-import {useParams, useHistory, Link} from 'react-router-dom'
-import {Card, Container, Navbar} from 'react-bootstrap'
+import React, {useState} from 'react'
+import {useHistory} from 'react-router-dom'
+import {Card, Navbar} from 'react-bootstrap'
 import DeleteIcon from '@mui/icons-material/DeleteForever';
 import NewUserRouteForm from './NewUserRouteForm'
 import NewReviewForm from './NewReviewForm'
 import UpdateUserProfileForm from './UpdateUserProfileForm'
-import RouteCollection from './RouteCollection'
+import UserRouteContainer from './UserRouteContainer'
 import Button from '@mui/material/Button';
-
+import ReviewContainer from './ReviewContainer';
 
 
 function UserProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRoute, setRoutes, saveNewReview, addReviewToUser, addUserRouteToUser, routes, reviews}) {
@@ -30,9 +30,10 @@ function UserProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRout
     setSeeReviewForm(currentVal => !currentVal)
   }
   
-  const {first_name, age, profile_picture, id, user_routes} = currentUser
+  const {first_name, age, profile_picture, id} = currentUser
   
-
+  // const routes = user_routes.map(user_route => user_route.route)
+  // const mappedRoutes = routes.map(route => <RouteCard key={route.id} {...route} currentUser={currentUser}/>)
 
   
   
@@ -63,6 +64,7 @@ function UserProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRout
           <Button  variant='contained' onClick={()=>history.push("/routes")}>See all Routes</Button>
           <Button  variant='contained' onClick={()=>history.push("/mountains")}>See all Mountains</Button>
           <Button  variant='contained' onClick={()=>history.push("/chat")}>Live Chat</Button>
+          <Button  variant='contained' onClick={()=>history.push("/reviews")}>See All Reviewed Routes </Button>
           <Button  variant='contained' onClick={handleSignoutClick}>Signout</Button>
           </Navbar>
         
@@ -76,6 +78,12 @@ function UserProfile({currentUser, handleSignoutClick, saveUser, saveNewUserRout
             {seeCreateUserRoute ? <NewUserRouteForm seeCreateUserRoute={seeCreateUserRoute} saveNewUserRoute={saveNewUserRoute} setRoutes={setRoutes} addUserRouteToUser={addUserRouteToUser} currentUser={currentUser} routes={routes} /> : null}
             <Button  variant='contained' onClick={toggleReview}>Review A Route!</Button>
             {seeReviewForm ? <NewReviewForm seeReviewForm={seeReviewForm} saveNewReview={saveNewReview} setNewReview={setNewReview} currentUser={currentUser} addReviewToUser={addReviewToUser}/> : null}
+        </div>
+        <div className="container">
+        <UserRouteContainer routes={currentUser.user_routes} currentUser={currentUser} />   
+        </div>
+        <div className="container">
+        <ReviewContainer reviews={currentUser.reviews} currentUser={currentUser} />   
         </div>
         <footer>
         <Button variant='contained' color="error" startIcon={<DeleteIcon />} onClick={handleDelete}> Delete account</Button>

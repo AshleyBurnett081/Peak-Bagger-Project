@@ -7,7 +7,7 @@ import UserCollection from './UserCollection';
 import NewUserForm from "./NewUserForm";
 import LoginForm from "./LoginForm";
 import UserProfile from "./UserProile";
-
+import ReviewContainer from "./ReviewContainer";
 
 
 
@@ -178,6 +178,9 @@ return (
   </Route>
   <Route path = "/mountains">
   <MountainCollection mountains={mountains}/>
+  </Route>
+  <Route path = "/reviews">
+  <ReviewContainer reviews={reviews}/>
   </Route>
   <Route path = "/chat">
   <ChatEngine
