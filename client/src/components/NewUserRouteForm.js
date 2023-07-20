@@ -72,6 +72,7 @@ function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUser
                 id="comment"
                 name="comment"
                 type="text"
+                placeholder="      Review This Route"
                 onChange={formik.handleChange}
                 value={formik.values.comment} 
             />
@@ -81,6 +82,7 @@ function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUser
                 id="duration_of_climb"
                 name="duration_of_climb"
                 type="text"
+                placeholder="              HH:MM"
                 onChange={formik.handleChange}
                 value={formik.values.duration_of_climb}
             /> 
@@ -90,10 +92,10 @@ function NewUserRouteForm({handleToggleForm, currentUser, setUserRoutes, addUser
                 id="date"
                 name="date"
                 type="text"
+                placeholder="           DD/MM/YYYY"
                 onChange={formik.handleChange}
                 value={formik.values.date}
             /> 
-            <Button variant='contained' type="reset">Reset Form</Button>
             <Button  variant='contained' type="submit">Submit</Button>
 
         </form>

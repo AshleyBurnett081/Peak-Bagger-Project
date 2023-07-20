@@ -76,6 +76,7 @@ function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUs
                 id="rating"
                 name="rating"
                 type="text"
+                placeholder="                 1-10"
                 onChange={formik.handleChange}
                 value={formik.values.rating} 
             />
@@ -85,11 +86,11 @@ function NewReviewForm({handleToggleForm, currentUser, setReviews, addReviewToUs
                 id="comment"
                 name="comment"
                 type="text"
+                placeholder= "  Leave your Review Here"
                 onChange={formik.handleChange}
                 value={formik.values.comment} 
             />
-  
-            <Button variant='contained' type="reset">Reset Form</Button>
+            
             <Button variant='contained'type="submit">Submit</Button>
 
         </form>

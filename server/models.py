@@ -55,8 +55,6 @@ class User(db.Model, SerializerMixin):
     def validate_user_name(self, key, current_user_name):
         if not current_user_name or not type(str) or not 2 < len(current_user_name) < 35:
           raise ValueError('Your user name must be between 2 and 35 characters long')
-        if User.query.filter_by(user_name= current_user_name).first():
-            raise ValueError('That name is already in use')
         return current_user_name
 
     @validates('age')

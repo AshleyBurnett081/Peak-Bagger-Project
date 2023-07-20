@@ -139,11 +139,10 @@ function App() {
 
       useEffect(() => {
         fetch("/check-user")
-        .then(response => {
-          if (response.ok){
-            response.json()
-            .then(saveUser)
-          }
+        .then(response => response.json())
+        .then(data => {
+          saveUser(data)
+          
         })
         }, [])
 

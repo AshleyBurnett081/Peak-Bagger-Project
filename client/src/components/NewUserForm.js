@@ -140,7 +140,7 @@ function NewUserForm({saveUser, handleToggleForm}) {
                 value={formik.values.profile_picture}
             />
 
-            <label className="form-text" htmlFor="favorite_mountain">Profile Picture URL:</label>
+            <label className="form-text" htmlFor="favorite_mountain">Favorite Mountain:</label>
             <input
                 id="favorite_mountain"
                 name="favorite_mountain"
