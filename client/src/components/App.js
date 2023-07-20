@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {ChatEngine} from 'react-chat-engine';
 import { Switch, Route } from "react-router-dom";
 import MountainCollection from "./MountainCollection";
@@ -8,8 +8,8 @@ import NewUserForm from "./NewUserForm";
 import LoginForm from "./LoginForm";
 import UserProfile from "./UserProile";
 import ReviewContainer from "./ReviewContainer";
-
-
+import { ErrorContext } from "./ErrorProvider";
+import ErrorBar from "./ErrorBar";
 
 
 
@@ -24,7 +24,8 @@ function App() {
     const [reviews, setReviews] = useState([])
     const [userRoutes, setUserRoutes] = useState([])
     const [userReviews, setUserReviews] = useState([])
-
+    // const { setErrors } = useContext(ErrorContext)
+    
     useEffect(() => {
         fetch("/mountains")
         .then(response => response.json())
@@ -139,10 +140,11 @@ function App() {
 
       useEffect(() => {
         fetch("/check-user")
-        .then(response => response.json())
-        .then(data => {
-          saveUser(data)
-          
+        .then(response => {
+          if (response.ok){
+            response.json()
+            .then(saveUser)
+          }
         })
         }, [])
 
@@ -152,10 +154,11 @@ function App() {
             <header className="welcome-message">
               +++++Project Peak Bagger+++++ 
             </header>
+            <ErrorBar/>
             <nav>
               {!showLoginForm ? <LoginForm saveUser={saveUser} handleToggleForm={handleToggleForm}/> : <NewUserForm saveUser={saveUser} handleToggleForm={handleToggleForm}/>}
             </nav>
-            <img src="https://www.thoughtco.com/thmb/KYfAVyXgN1h_Jx3C3mt9JthMTSM=/5555x2835/filters:fill(auto,1)/CapitolPeak_DonGrail_GettyImages2-58b5b9545f9b586046c3e970.jpg" alt="Capital Peak"/>
+            <img  className='Login_pic' src="https://www.thoughtco.com/thmb/KYfAVyXgN1h_Jx3C3mt9JthMTSM=/5555x2835/filters:fill(auto,1)/CapitolPeak_DonGrail_GettyImages2-58b5b9545f9b586046c3e970.jpg" alt="Capital Peak"/>
             </>
             )
             }  

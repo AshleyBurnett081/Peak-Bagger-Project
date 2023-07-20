@@ -36,3 +36,11 @@
 .difficulty-text {
     color:red
 }
+
+.card {
+    z-index: 900;
+}
+
+.snackbar {
+    z-index: 950;
+}

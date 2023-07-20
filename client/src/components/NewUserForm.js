@@ -2,12 +2,12 @@ import { useEffect, useState, useContext } from "react";
 import React from "react";
 import {useFormik} from "formik";
 import * as yup from "yup";
-import { ErrorContext } from "./ErrorBoundary";
-import Button from '@mui/material/Button';
+import Button from '@mui/material/Button'
+import {ErrorContext} from "./ErrorProvider";
 
 function NewUserForm({saveUser, handleToggleForm}) {
-    
-    const{handleAddError} = useContext(ErrorContext)
+
+    const { setErrors } = useContext(ErrorContext)
 
     const userSchema = yup.object({
         first_name: yup.string().required("Please enter your first name"),
@@ -59,7 +59,7 @@ function NewUserForm({saveUser, handleToggleForm}) {
                 else {
                     resp.json()
                     .then(errorObj => {
-                        handleAddError(errorObj.error)
+                        setErrors(errors => [...errors, errorObj.error])
                     })
                 }
             })

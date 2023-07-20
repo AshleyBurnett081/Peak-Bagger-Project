@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ErrorContext } from "./ErrorBoundary";
+import { ErrorContext } from "./ErrorProvider";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
@@ -8,21 +8,21 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const Error = () => {
-  const { error, setError } = useContext(ErrorContext);
+  const { errors, setErrors } = useContext(ErrorContext);
   const [open, setOpen] = useState(null);
 
   useEffect(() => {
-    if (error) {
+    if (errors) {
       setOpen(true);
-      const timer = setTimeout(() => {
-        setError(null);
-      }, 3000);
+      // const timer = setTimeout(() => {
+      //   setErrors([]);
+      // }, 3000);
 
-      return () => {
-        clearTimeout(timer);
-      };
+      // return () => {
+      //   clearTimeout(timer);
+      // };
     }
-  }, [error, setError]);
+  }, [errors, setErrors]);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -33,9 +33,9 @@ const Error = () => {
   };
 
   return (
-    <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-        {error}
+    <Snackbar className="snackbar" open={open} autoHideDuration={7000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity="error" sx={{ width: "100%", height:"3em" }}>
+        {errors.length > 0 && errors[0]}
       </Alert>
     </Snackbar>
   );

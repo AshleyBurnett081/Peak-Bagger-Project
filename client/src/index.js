@@ -2,17 +2,15 @@ import App from './components/App';
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from 'react-router-dom'
-import { ErrorBoundary, ErrorContext } from './components/ErrorBoundary';
 import 'semantic-ui-css/semantic.min.css'
-// import "./index.css";
-
+import { ErrorProvider } from './components/ErrorProvider';
 
 ReactDOM.render(
-  <ErrorBoundary>
+  <ErrorProvider>
   <Router>
-    <App />
+  <App />
   </Router>
-  </ErrorBoundary>,
+  </ErrorProvider>,
   document.getElementById('root')
 );
 
