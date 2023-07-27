@@ -152,7 +152,7 @@ function App() {
             return (
             <>
             <header className="welcome-message">
-              +++++Project Peak Bagger+++++ 
+              <h1>climbColorado()</h1> 
             </header>
             <ErrorBar/>
             <nav>
