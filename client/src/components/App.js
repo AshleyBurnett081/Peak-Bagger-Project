@@ -152,7 +152,7 @@ function App() {
             return (
             <>
             <header className="welcome-message">
-              <h1>++climbColorado++()</h1> 
+              <h1>+climbColorado+()</h1> 
             </header>
             <ErrorBar/>
             <nav>
